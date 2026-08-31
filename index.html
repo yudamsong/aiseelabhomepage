@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; letter-spacing:-0.01em; color:#191F28; background:#fff; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#1B3A6B; }
+  .section-h { font-weight:700; color:#191F28; letter-spacing:-0.03em; }
+  @keyframes orbit-drift {
+    0%   { transform: scale(1.06) translate3d(0,0,0); }
+    50%  { transform: scale(1.14) translate3d(-1.8%,-1.2%,0); }
+    100% { transform: scale(1.06) translate3d(0,0,0); }
+  }
+  @keyframes scan-sweep {
+    0%   { transform: translateY(-40%); opacity: 0; }
+    12%  { opacity: .55; }
+    88%  { opacity: .35; }
+    100% { transform: translateY(140%); opacity: 0; }
+  }
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bob {
+    0%,100% { transform: translateY(0); opacity: .75; }
+    50%     { transform: translateY(9px); opacity: 1; }
+  }
+  @keyframes grid-drift {
+    from { background-position: 0 0, 0 0; }
+    to   { background-position: 120px 0, 0 120px; }
+  }
+  @keyframes wipe-in {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @keyframes ping {
+    0%   { transform: scale(.6); opacity: .9; }
+    70%  { transform: scale(2.6); opacity: 0; }
+    100% { transform: scale(2.6); opacity: 0; }
+  }
+  @keyframes glow-in {
+    from { opacity: 0; text-shadow: 0 0 0 rgba(108,166,255,0); }
+    to   { opacity: 1; text-shadow: 0 0 26px rgba(108,166,255,.55); }
+  }
+  @keyframes twinkle { 0%,100% { opacity:.25; } 50% { opacity:1; } }
+  @keyframes h-sweep { 0% { transform:translateX(-30%); opacity:0; } 15% { opacity:.5; } 85% { opacity:.4; } 100% { transform:translateX(130%); opacity:0; } }
+  @keyframes sun-flare { 0%,100% { opacity:.55; transform:translate(-50%,-50%) scale(1); } 50% { opacity:.95; transform:translate(-50%,-50%) scale(1.08); } }
+  @keyframes slow-drift { 0% { transform:scale(1.17) translate3d(3.4%,2%,0); } 50% { transform:scale(1.06) translate3d(-2.4%,-1.1%,0); } 100% { transform:scale(1.17) translate3d(3.4%,2%,0); } }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+  }
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;">
+  <dc-import name="SiteHeader" active="home" hint-size="100%,82px"></dc-import>
+  <main style="flex:1;">
+
+    <section style="position:relative;height:calc(100vh - 82px);min-height:600px;width:100%;overflow:hidden;background:#070C15;">
+      <img src="uploads/pasted-1787805571297-0.png" alt="한반도 상공에서 지구를 관측하는 위성" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;animation:slow-drift 78s ease-in-out infinite;will-change:transform;">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,12,21,.30) 0%,rgba(7,12,21,.34) 42%,rgba(7,12,21,.78) 100%);"></div>
+
+      <div style="position:absolute;inset:0;opacity:.16;mix-blend-mode:screen;background-image:linear-gradient(to right,rgba(180,214,255,.55) 1px,transparent 1px),linear-gradient(to bottom,rgba(180,214,255,.55) 1px,transparent 1px);background-size:120px 100%,100% 120px;animation:grid-drift 26s linear infinite;"></div>
+
+      <div style="position:absolute;left:0;right:0;top:0;height:34%;pointer-events:none;background:linear-gradient(180deg,rgba(120,180,255,0) 0%,rgba(120,180,255,.10) 55%,rgba(190,224,255,.45) 96%,rgba(190,224,255,.75) 100%);animation:scan-sweep 8.5s cubic-bezier(.4,0,.5,1) infinite;"></div>
+
+      <div style="position:absolute;inset:0;pointer-events:none;">
+        <span style="position:absolute;left:12%;top:16%;width:2px;height:2px;border-radius:50%;background:#DCEBFF;animation:twinkle 3.2s ease-in-out infinite;"></span>
+        <span style="position:absolute;left:31%;top:9%;width:3px;height:3px;border-radius:50%;background:#EAF3FF;animation:twinkle 4.4s ease-in-out .6s infinite;"></span>
+        <span style="position:absolute;left:47%;top:19%;width:2px;height:2px;border-radius:50%;background:#CFE2FF;animation:twinkle 3.8s ease-in-out 1.2s infinite;"></span>
+        <span style="position:absolute;left:63%;top:11%;width:2px;height:2px;border-radius:50%;background:#EAF3FF;animation:twinkle 5s ease-in-out .3s infinite;"></span>
+        <span style="position:absolute;left:79%;top:22%;width:3px;height:3px;border-radius:50%;background:#DCEBFF;animation:twinkle 4s ease-in-out 1.8s infinite;"></span>
+        <span style="position:absolute;left:88%;top:13%;width:2px;height:2px;border-radius:50%;background:#CFE2FF;animation:twinkle 3.4s ease-in-out .9s infinite;"></span>
+      </div>
+
+      <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
+        <div style="position:absolute;top:0;bottom:0;width:26%;background:linear-gradient(90deg,rgba(140,192,255,0) 0%,rgba(140,192,255,.10) 60%,rgba(190,224,255,.28) 100%);animation:h-sweep 14s cubic-bezier(.45,0,.55,1) infinite;"></div>
+      </div>
+
+      <div style="position:absolute;left:48%;top:6%;width:30vw;height:30vw;transform:translate(-50%,-50%);pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(255,236,200,.26) 0%,rgba(255,236,200,.07) 42%,rgba(255,236,200,0) 70%);animation:sun-flare 7s ease-in-out infinite;"></div>
+
+      <div style="position:absolute;left:26%;top:38%;width:10px;height:10px;">
+        <span style="position:absolute;inset:0;border-radius:50%;background:#8CC0FF;box-shadow:0 0 12px rgba(140,192,255,.9);"></span>
+        <span style="position:absolute;inset:0;border-radius:50%;border:1px solid #8CC0FF;animation:ping 3.4s ease-out infinite;"></span>
+      </div>
+      <div style="position:absolute;left:68%;top:56%;width:8px;height:8px;">
+        <span style="position:absolute;inset:0;border-radius:50%;background:#8CC0FF;box-shadow:0 0 10px rgba(140,192,255,.8);"></span>
+        <span style="position:absolute;inset:0;border-radius:50%;border:1px solid #8CC0FF;animation:ping 3.4s ease-out 1.7s infinite;"></span>
+      </div>
+
+
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:0 64px 72px;">
+        <div style="max-width:1100px;margin:0 auto;">
+          <div style="display:flex;align-items:center;gap:12px;animation:rise-in .8s cubic-bezier(.2,.8,.2,1) .15s both;">
+            <span style="display:block;width:44px;height:2px;background:#8CC0FF;transform-origin:left;animation:wipe-in .7s cubic-bezier(.2,.8,.2,1) .5s both;"></span>
+            <span style="font-size:13px;font-weight:700;letter-spacing:.18em;color:#B7D4F7;">JEONBUK NATIONAL UNIVERSITY</span>
+          </div>
+          <h1 style="margin-top:22px;font-weight:800;letter-spacing:-0.035em;font-size:clamp(32px,4.6vw,66px);line-height:1.06;color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.45);display:flex;flex-direction:column;">
+            <span style="animation:rise-in .9s cubic-bezier(.2,.8,.2,1) .3s both;"><span style="color:#6CA6FF;animation:glow-in .7s ease-out .9s both;">AI</span>-based</span>
+            <span style="animation:rise-in .9s cubic-bezier(.2,.8,.2,1) .42s both;"><span style="color:#6CA6FF;animation:glow-in .7s ease-out 1.15s both;">S</span>ensing of <span style="color:#6CA6FF;animation:glow-in .7s ease-out 1.4s both;">E</span>arth's <span style="color:#6CA6FF;animation:glow-in .7s ease-out 1.65s both;">E</span>nvironment Lab</span>
+          </h1>
+          <p style="margin-top:18px;font-weight:600;letter-spacing:-0.02em;font-size:clamp(17px,1.9vw,24px);line-height:1.35;color:#CBDDF3;text-shadow:0 2px 16px rgba(0,0,0,.4);animation:rise-in .9s cubic-bezier(.2,.8,.2,1) .68s both;">전북대학교 인공지능 위성원격탐사 연구실</p>
+
+          <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:44px;animation:rise-in .9s cubic-bezier(.2,.8,.2,1) .66s both;">
+            <sc-for list="{{ heroStats }}" as="s" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <span style="font-size:clamp(26px,2.8vw,36px);font-weight:700;letter-spacing:-0.03em;color:#fff;">{{ s.value }}</span>
+                <span style="font-size:13px;font-weight:600;letter-spacing:.06em;color:#A9C6E8;">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <a href="#intro" aria-label="아래로 스크롤" style="position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:#DCE9FA;">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.16em;">SCROLL</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="animation:bob 2.2s ease-in-out infinite;"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+      </a>
+    </section>
+
+    <section id="intro" style="max-width:1100px;margin:0 auto;padding:72px 48px 0;scroll-margin-top:82px;">
+      <p style="max-width:760px;font-size:18px;line-height:1.7;color:#4E5968;text-wrap:pretty;">AI SEE Lab specializes in satellite image analysis, environmental monitoring, and climate change research, developing advanced remote sensing technologies with deep learning and machine learning.</p>
+    </section>
+
+    <section style="max-width:1100px;margin:0 auto;padding:72px 48px 88px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="3">
+          <a href="{{ q.href }}" style="display:flex;flex-direction:column;gap:10px;padding:28px 26px;background:#fff;border:1px solid #E5E8EB;border-radius:20px;box-shadow:0 1px 2px rgba(25,31,40,.04);transition:box-shadow .2s;">
+            <span style="font-size:13px;font-weight:700;letter-spacing:.1em;color:#1B3A6B;">{{ q.kicker }}</span>
+            <span class="section-h" style="font-size:22px;">{{ q.title }}</span>
+            <span style="font-size:15px;color:#4E5968;line-height:1.5;text-wrap:pretty;">{{ q.desc }}</span>
+            <span style="margin-top:6px;font-size:15px;font-weight:600;color:#1B3A6B;">바로가기 →</span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+  </main>
+  <dc-import name="SiteFooter" hint-size="100%,90px"></dc-import>
+</div>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1B3A6B"></rect><text x="50" y="62" font-family="sans-serif" font-size="34" font-weight="700" fill="#fff" text-anchor="middle">AI</text></svg>
+</template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      heroStats: [
+        { value: 'AI · Satellite', label: 'CORE METHOD' },
+        { value: 'Earth Environment', label: 'FIELD OF STUDY' }
+      ],
+      quickLinks: [
+        { kicker: 'RESEARCH', title: 'Research', desc: 'AI·위성 데이터 기반 재난 예측, 재생에너지, 기후 모니터링 연구', href: 'research.html' },
+        { kicker: 'PUBLICATIONS', title: 'Publications', desc: '2008년부터 이어진 연구실의 학술 논문 성과', href: 'publications.html' },
+        { kicker: 'BROAD', title: 'Lab News', desc: '학회 참석, 세미나, 연구실 소식과 사진', href: 'broad.html' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

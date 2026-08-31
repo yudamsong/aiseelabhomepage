@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  .member-menu:hover .member-dd { display:block !important; }
+</style>
+</helmet>
+<header style="position:sticky;top:0;z-index:50;background:#fff;display:flex;align-items:center;gap:28px;padding:14px 48px;border-bottom:1px solid #E5E8EB;flex-wrap:wrap;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;letter-spacing:-0.01em;">
+  <a href="index.html" style="display:flex;align-items:center;gap:14px;text-decoration:none;">
+    <img src="https://static.wixstatic.com/media/f6a492_d59013b0217344b6a9223f08eac9ef1e~mv2.png/v1/fill/w_116,h_116,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/f6a492_d59013b0217344b6a9223f08eac9ef1e~mv2.png" alt="전북대학교 인공지능 원격탐사 연구실" style="width:52px;height:52px;object-fit:contain;">
+    <span style="display:flex;flex-direction:column;line-height:1.2;">
+      <span style="font-size:14px;font-weight:600;color:#191F28;">Jeonbuk National University</span>
+      <span style="font-size:21px;font-weight:700;letter-spacing:.5px;color:#191F28;">AI SEE Lab</span>
+    </span>
+  </a>
+  <nav style="margin-left:auto;display:flex;align-items:center;gap:26px;">
+    <a href="index.html" style="{{ homeStyle }}">Home</a>
+    <div class="member-menu" style="position:relative;">
+      <span style="{{ memberStyle }}">Member <span style="font-size:10px;">▾</span></span>
+      <div class="member-dd" style="display:none;position:absolute;top:100%;left:0;padding-top:12px;min-width:184px;z-index:20;">
+        <div style="background:#fff;border:1px solid #E5E8EB;box-shadow:0 8px 24px rgba(0,0,0,.1);border-radius:14px;padding:8px 0;overflow:hidden;">
+          <a href="professor.html" style="{{ profStyle }}">Professor</a>
+          <a href="members.html" style="{{ membersStyle }}">Members</a>
+          <a href="undergraduates.html" style="{{ ugStyle }}">Undergraduates</a>
+          <a href="alumni.html" style="{{ alumniStyle }}">Alumni</a>
+        </div>
+      </div>
+    </div>
+    <a href="research.html" style="{{ researchStyle }}">Research</a>
+    <a href="publications.html" style="{{ pubStyle }}">Publications</a>
+    <a href="broad.html" style="{{ broadStyle }}">Broad</a>
+    <a href="contact.html" style="{{ contactStyle }}">Contact</a>
+    <span style="color:#8B95A1;cursor:pointer;font-size:15px;">More</span>
+  </nav>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:82},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;professor&quot;,&quot;members&quot;,&quot;undergraduates&quot;,&quot;alumni&quot;,&quot;research&quot;,&quot;publications&quot;,&quot;broad&quot;,&quot;contact&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const active = this.props.active || '';
+    const memberKeys = ['professor','members','undergraduates','alumni'];
+    const base = 'font-size:15px;font-weight:500;color:#191F28;cursor:pointer;text-decoration:none;';
+    const on = 'font-size:15px;font-weight:700;color:#1B3A6B;cursor:pointer;text-decoration:none;';
+    const link = (k) => active === k ? on : base;
+    const ddBase = 'display:block;padding:10px 18px;color:#191F28;text-decoration:none;font-size:14px;font-weight:500;';
+    const ddOn = 'display:block;padding:10px 18px;color:#1B3A6B;text-decoration:none;font-size:14px;font-weight:700;';
+    const dd = (k) => active === k ? ddOn : ddBase;
+    return {
+      homeStyle: link('home'),
+      memberStyle: (memberKeys.includes(active) ? on : base) + 'display:inline-flex;align-items:center;gap:5px;',
+      profStyle: dd('professor'), membersStyle: dd('members'), ugStyle: dd('undergraduates'), alumniStyle: dd('alumni'),
+      researchStyle: link('research'), pubStyle: link('publications'), broadStyle: link('broad'), contactStyle: link('contact')
+    };
+  }
+}
+</script>
+</body>
+</html>

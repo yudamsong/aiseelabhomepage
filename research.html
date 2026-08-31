@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; letter-spacing:-0.01em; color:#191F28; background:#fff; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#1B3A6B; }
+  .section-h { font-weight:700; color:#191F28; letter-spacing:-0.03em; }
+  @keyframes panel-in { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes beam-in { from { opacity:0; } to { opacity:1; } }
+  @keyframes foot-pulse { 0%,100% { opacity:.16; } 50% { opacity:.34; } }
+  @keyframes foot-ring { 0% { transform:scale(.7); opacity:.85; } 100% { transform:scale(1.25); opacity:0; } }
+  @keyframes pin-ping { 0% { transform:scale(1); opacity:.75; } 70% { transform:scale(2.5); opacity:0; } 100% { transform:scale(2.5); opacity:0; } }
+  @keyframes spin-slow { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+  @keyframes beam { 0%,100% { opacity:.25; } 50% { opacity:.7; } }
+  @keyframes drift { from { transform:translateX(0); } to { transform:translateX(26px); } }
+  @keyframes bob { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+  @keyframes shimmer { 0%,100% { opacity:.4; } 50% { opacity:.9; } }
+  @keyframes sun-glow { 0%,100% { opacity:.22; transform:scale(1); } 50% { opacity:.45; transform:scale(1.08); } }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; } }
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;">
+  <dc-import name="SiteHeader" active="research" hint-size="100%,82px"></dc-import>
+  <main style="flex:1;">
+    <section style="max-width:1160px;margin:0 auto;padding:60px 40px 96px;">
+
+      <h2 class="section-h" style="font-size:44px;margin-bottom:14px;">Research</h2>
+      <p style="max-width:680px;font-size:18px;line-height:1.7;color:#4E5968;text-wrap:pretty;">위성자료와 인공지능으로 지구 환경을 이해하고, 더 나은 미래를 만들어갑니다.<br>관심 있는 영역을 클릭하면 연구 내용을 확인할 수 있습니다.</p>
+
+      <div style="position:relative;margin-top:36px;border-radius:28px;overflow:hidden;border:1px solid #E5E8EB;box-shadow:0 12px 34px rgba(25,31,40,.09);background:linear-gradient(180deg,#F7FAFD 0%,#EDF3F8 58%,#E7EFF5 100%);">
+        <svg viewBox="0 0 1400 890" style="width:100%;height:auto;display:block;">
+          <defs>
+            <linearGradient id="seaG" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0" stop-color="#7FC9E6"></stop>
+              <stop offset="1" stop-color="#3F87BC"></stop>
+            </linearGradient>
+            <linearGradient id="landG" x1="0.2" y1="0" x2="0.8" y2="1">
+              <stop offset="0" stop-color="#C8EFAE"></stop>
+              <stop offset="1" stop-color="#7EC369"></stop>
+            </linearGradient>
+            <g id="tree">
+              <path d="M0 0 L0 -7" stroke="#7C6A57" stroke-width="2.4" stroke-linecap="round"></path>
+              <ellipse cx="0" cy="-13" rx="8" ry="9" fill="#4E8F49"></ellipse>
+              <ellipse cx="-2.5" cy="-15" rx="5" ry="5.5" fill="#6DAD5F"></ellipse>
+            </g>
+            <g id="tree2">
+              <path d="M0 0 L0 -6" stroke="#7C6A57" stroke-width="2.2" stroke-linecap="round"></path>
+              <polygon points="-8,-6 8,-6 0,-20" fill="#3E8A50"></polygon>
+              <polygon points="-6.5,-14 6.5,-14 0,-26" fill="#4FA05E"></polygon>
+              <polygon points="-5,-21 5,-21 0,-31" fill="#63B56F"></polygon>
+            </g>
+            <g id="flower">
+              <path d="M0 0 L0 -6" stroke="#5E8F4F" stroke-width="1.6"></path>
+              <circle cx="0" cy="-8" r="3" fill="#F2A7C3"></circle>
+              <circle cx="0" cy="-8" r="1.2" fill="#F7DE6B"></circle>
+            </g>
+            <g id="flower2">
+              <path d="M0 0 L0 -6" stroke="#5E8F4F" stroke-width="1.6"></path>
+              <circle cx="0" cy="-8" r="3" fill="#F7C948"></circle>
+              <circle cx="0" cy="-8" r="1.2" fill="#FFF3D6"></circle>
+            </g>
+            <g id="bush">
+              <ellipse cx="0" cy="-4" rx="10" ry="6" fill="#5FA455"></ellipse>
+              <ellipse cx="-5" cy="-7" rx="6" ry="4.5" fill="#79BC6A"></ellipse>
+              <ellipse cx="5" cy="-6" rx="5.5" ry="4" fill="#6FB061"></ellipse>
+            </g>
+            <g id="bld">
+              <polygon points="-48,0 0,24 0,-28 -48,-52" fill="#D3DAE2"></polygon>
+              <polygon points="48,0 0,24 0,-28 48,-52" fill="#BFC8D3"></polygon>
+              <polygon points="0,-76 48,-52 0,-28 -48,-52" fill="#EEF1F5"></polygon>
+              <polygon points="-40,-40 -8,-24 -8,-18 -40,-34" fill="#AFBAC7"></polygon>
+              <polygon points="-40,-26 -8,-10 -8,-4 -40,-20" fill="#AFBAC7"></polygon>
+              <polygon points="40,-40 8,-24 8,-18 40,-34" fill="#A6B1BF"></polygon>
+              <polygon points="40,-26 8,-10 8,-4 40,-20" fill="#A6B1BF"></polygon>
+            </g>
+            <g id="wt">
+              <polygon points="-3,0 3,0 1.6,-72 -1.6,-72" fill="#E8ECF1"></polygon>
+              <g transform="translate(0,-72)">
+                <g>
+                  <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="9s" repeatCount="indefinite"></animateTransform>
+                  <path d="M-1.8,0 L-3,-27 L0,-32 L3,-27 L1.8,0 Z" fill="#F4F6F9"></path>
+                  <path d="M-1.8,0 L-3,-27 L0,-32 L3,-27 L1.8,0 Z" fill="#E9EEF3" transform="rotate(120)"></path>
+                  <path d="M-1.8,0 L-3,-27 L0,-32 L3,-27 L1.8,0 Z" fill="#E2E7ED" transform="rotate(240)"></path>
+                </g>
+                <circle r="4" fill="#C9D1DA"></circle>
+              </g>
+            </g>
+            <g id="wtsea">
+              <ellipse cx="0" cy="2" rx="22" ry="8" fill="none" stroke="#C3DEEE" stroke-width="2" opacity=".8"></ellipse>
+              <ellipse cx="0" cy="4" rx="34" ry="12" fill="none" stroke="#C3DEEE" stroke-width="1.6" opacity=".5"></ellipse>
+              <polygon points="-7,2 7,2 6,-20 -6,-20" fill="#E0C56C"></polygon>
+              <polygon points="0,2 7,2 6,-20 0,-20" fill="#C9AC53"></polygon>
+              <use href="#wt" transform="translate(0,-20)"></use>
+            </g>
+            <g id="panel">
+              <polygon points="0,0 160,80 134,93 -26,13" fill="#31527F"></polygon>
+              <polygon points="0,0 160,80 156,82 -4,2" fill="#5F7EA8"></polygon>
+              <polygon points="40,20 30,25 30,29 40,24" fill="#1B3A6B" opacity=".45"></polygon>
+              <polygon points="80,40 70,45 70,49 80,44" fill="#1B3A6B" opacity=".45"></polygon>
+              <polygon points="120,60 110,65 110,69 120,64" fill="#1B3A6B" opacity=".45"></polygon>
+            </g>
+          </defs>
+
+          <g transform="translate(108,104)">
+            <circle r="46" fill="#FFD98A" style="transform-box:fill-box;transform-origin:center;animation:sun-glow 5s ease-in-out infinite;"></circle>
+            <circle r="25" fill="#FFCF66"></circle>
+            <circle r="18" fill="#FFE29E"></circle>
+          </g>
+          <g opacity=".55" style="animation:drift 18s ease-in-out infinite alternate;">
+            <ellipse cx="250" cy="120" rx="62" ry="17" fill="#fff"></ellipse>
+            <ellipse cx="292" cy="110" rx="40" ry="20" fill="#fff"></ellipse>
+            <ellipse cx="1010" cy="90" rx="54" ry="15" fill="#fff"></ellipse>
+            <ellipse cx="1046" cy="82" rx="34" ry="18" fill="#fff"></ellipse>
+          </g>
+
+          <g transform="translate(56,24)">
+            <ellipse cx="368" cy="196" rx="150" ry="20" fill="#C8D4DE" opacity=".35"></ellipse>
+            <g fill="#FFFFFF">
+              <ellipse cx="256" cy="182" rx="66" ry="26"></ellipse>
+              <ellipse cx="470" cy="180" rx="72" ry="27"></ellipse>
+              <ellipse cx="316" cy="152" rx="74" ry="44"></ellipse>
+              <ellipse cx="418" cy="146" rx="62" ry="40"></ellipse>
+              <ellipse cx="366" cy="128" rx="58" ry="42"></ellipse>
+              <rect x="248" y="170" width="228" height="24" rx="12"></rect>
+            </g>
+            <g fill="#DCE5EC" opacity=".85">
+              <ellipse cx="286" cy="188" rx="52" ry="10"></ellipse>
+              <ellipse cx="432" cy="188" rx="58" ry="10"></ellipse>
+            </g>
+          </g>
+
+          <g transform="translate(1146,130) scale(2.05)">
+            <rect x="-14" y="-14" width="30" height="30" rx="4" fill="#E9EDF3"></rect>
+            <rect x="-8" y="-8" width="18" height="18" rx="2" fill="#B9C4D2"></rect>
+            <rect x="-58" y="-9" width="40" height="20" rx="2" fill="#3F6394"></rect>
+            <rect x="18" y="-9" width="40" height="20" rx="2" fill="#3F6394"></rect>
+            <path d="M-58,-9 L-18,-9 M-58,1 L-18,1 M-58,11 L-18,11" stroke="#7E97B8" stroke-width="1"></path>
+            <path d="M18,-9 L58,-9 M18,1 L58,1 M18,11 L58,11" stroke="#7E97B8" stroke-width="1"></path>
+          </g>
+
+          <polygon points="60,490 700,810 700,846 60,526" fill="#B29A82"></polygon>
+          <polygon points="700,810 1340,490 1340,526 700,846" fill="#9C8570"></polygon>
+          <polygon points="700,170 1340,490 700,810 60,490" fill="url(#landG)"></polygon>
+
+          <path d="M956,298 C1010,380 990,470 1012,540 C1028,602 962,652 924,698 L1340,490 Z" fill="url(#seaG)"></path>
+          <path d="M956,298 C1010,380 990,470 1012,540 C1028,602 962,652 924,698" stroke="#E4DCC6" stroke-width="14" fill="none" stroke-linecap="round"></path>
+          <path d="M956,298 C1010,380 990,470 1012,540 C1028,602 962,652 924,698" stroke="#A9CFE6" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8" style="animation:shimmer 6s ease-in-out infinite;"></path>
+          <ellipse cx="1140" cy="552" rx="52" ry="10" fill="#E8F7FD" opacity=".4" style="animation:shimmer 5s ease-in-out infinite;"></ellipse>
+          <g stroke="#D8EEF9" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7" style="animation:shimmer 4s ease-in-out infinite;">
+            <path d="M1080,430 q18,-9 36,0"></path>
+            <path d="M1140,500 q18,-9 36,0"></path>
+            <path d="M1040,560 q18,-9 36,0"></path>
+            <path d="M1120,600 q18,-9 36,0"></path>
+            <path d="M1212,468 q18,-9 36,0"></path>
+            <path d="M1268,505 q16,-8 32,0"></path>
+          </g>
+
+          <g>
+            <ellipse cx="1028" cy="376" rx="46" ry="11" fill="#5C90B4" opacity=".16"></ellipse>
+            <ellipse cx="1028" cy="358" rx="46" ry="13" fill="#FFFFFF" opacity=".6"></ellipse>
+            <ellipse cx="1006" cy="350" rx="30" ry="9" fill="#FFFFFF" opacity=".78"></ellipse>
+            <ellipse cx="1050" cy="366" rx="30" ry="9" fill="#FFFFFF" opacity=".7"></ellipse>
+            <ellipse cx="1026" cy="344" rx="18" ry="6" fill="#FFFFFF" opacity=".85"></ellipse>
+            <g stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" fill="none" opacity=".8">
+              <path d="M998,366 q26,-6 50,2"></path>
+              <path d="M1010,376 q26,-6 48,2"></path>
+              <path d="M1004,340 q18,-4 34,1"></path>
+            </g>
+          </g>
+
+          <g transform="translate(126,0)">
+            <polygon points="620,190 806,332 434,332" fill="#8FB29A"></polygon>
+            <polygon points="620,190 806,332 660,332" fill="#B0CDB6"></polygon>
+            <polygon points="620,190 648,212 620,232 592,212" fill="#EFF4F0"></polygon>
+            <polygon points="432,238 578,346 286,346" fill="#9ABBA2"></polygon>
+            <polygon points="432,238 578,346 460,346" fill="#BDD8C2"></polygon>
+            <polygon points="770,236 862,320 676,320" fill="#86A78F"></polygon>
+            <polygon points="770,236 862,320 800,320" fill="#A6C4AC"></polygon>
+          </g>
+
+          <g fill="#6E8A6B" opacity=".26">
+            <ellipse cx="500" cy="372" rx="72" ry="24"></ellipse>
+            <ellipse cx="576" cy="386" rx="58" ry="19"></ellipse>
+            <ellipse cx="452" cy="390" rx="48" ry="16"></ellipse>
+          </g>
+          <g fill="#E6F7CF" opacity=".5">
+            <ellipse cx="760" cy="382" rx="70" ry="18"></ellipse>
+            <ellipse cx="610" cy="660" rx="60" ry="16"></ellipse>
+          </g>
+
+          <g>
+            <path d="M636,302 C708,386 764,456 828,520 C868,562 912,596 946,626 L1006,592 C976,562 936,528 896,486 C838,428 712,362 644,298 Z" fill="#7FB6D8" stroke="#9FBE99" stroke-width="3.5" stroke-linejoin="round"></path>
+            <path d="M652,314 C716,392 772,462 836,526 C874,566 912,596 944,622 L986,598 C952,570 908,532 862,486 C808,432 704,352 656,306 Z" fill="#9CCBE6"></path>
+            <path d="M676,336 C742,414 796,478 856,538 C888,572 916,596 940,616" stroke="#C4E0F0" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8" style="animation:shimmer 4.5s ease-in-out infinite;"></path>
+            <g stroke="#DCEEF8" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".85">
+              <path d="M744,404 q12,-7 24,-1"></path>
+              <path d="M818,478 q13,-7 26,-1"></path>
+              <path d="M892,552 q14,-8 28,-1"></path>
+            </g>
+          </g>
+
+          <path d="M176,548 C318,606 460,606 560,570 C662,534 764,546 862,592 C938,628 976,646 1008,662" stroke="#DFE4EA" stroke-width="24" fill="none" stroke-linecap="round"></path>
+          <path d="M176,548 C318,606 460,606 560,570 C662,534 764,546 862,592 C938,628 976,646 1008,662" stroke="#fff" stroke-width="2.4" fill="none" stroke-dasharray="14 16" stroke-linecap="round"></path>
+          <polygon points="836,566 916,606 902,620 822,580" fill="#EDF0F4"></polygon>
+          <polygon points="836,566 916,606 916,610 836,570" fill="#CDD5DE"></polygon>
+
+          <g transform="translate(364,386)">
+            <use href="#panel"></use>
+            <use href="#panel" transform="translate(-48,24)"></use>
+            <use href="#panel" transform="translate(-96,48)"></use>
+            <use href="#panel" transform="translate(-144,72)"></use>
+          </g>
+
+          <use href="#bld" transform="translate(596,528)"></use>
+          <use href="#bld" transform="translate(688,566) scale(0.86)"></use>
+          <use href="#bld" transform="translate(516,572) scale(0.78)"></use>
+          <use href="#bld" transform="translate(940,672) scale(0.7)"></use>
+
+          <use href="#wt" transform="translate(246,472)"></use>
+          <use href="#wt" transform="translate(330,436) scale(0.88)"></use>
+          <use href="#wtsea" transform="translate(1160,466) scale(0.8)"></use>
+          <use href="#wtsea" transform="translate(1246,512) scale(0.72)"></use>
+          <use href="#wtsea" transform="translate(1094,540) scale(0.68)"></use>
+
+          <g>
+            <use href="#tree" transform="translate(300,520)"></use>
+            <use href="#tree" transform="translate(348,552)"></use>
+            <use href="#tree" transform="translate(252,566) scale(1.1)"></use>
+            <use href="#tree" transform="translate(420,610)"></use>
+            <use href="#tree" transform="translate(492,650) scale(1.1)"></use>
+            <use href="#tree" transform="translate(566,678)"></use>
+            <use href="#tree" transform="translate(640,704) scale(1.15)"></use>
+            <use href="#tree" transform="translate(716,678)"></use>
+            <use href="#tree" transform="translate(790,646)"></use>
+            <use href="#tree" transform="translate(864,678) scale(0.9)"></use>
+            <use href="#tree" transform="translate(700,400) scale(0.8)"></use>
+            <use href="#tree" transform="translate(756,432) scale(0.85)"></use>
+            <use href="#tree" transform="translate(812,470) scale(0.9)"></use>
+            <use href="#tree" transform="translate(880,520) scale(0.85)"></use>
+            <use href="#tree" transform="translate(600,620)"></use>
+            <use href="#tree" transform="translate(196,504) scale(0.9)"></use>
+            <use href="#tree2" transform="translate(268,548)"></use>
+            <use href="#tree2" transform="translate(540,700) scale(1.1)"></use>
+            <use href="#tree2" transform="translate(760,700) scale(0.95)"></use>
+            <use href="#tree2" transform="translate(838,560) scale(0.85)"></use>
+          </g>
+          <g>
+            <use href="#bush" transform="translate(356,590)"></use>
+            <use href="#bush" transform="translate(676,452) scale(0.9)"></use>
+            <use href="#bush" transform="translate(742,716)"></use>
+            <use href="#bush" transform="translate(470,640) scale(0.8)"></use>
+            <use href="#flower" transform="translate(300,596)"></use>
+            <use href="#flower" transform="translate(316,604)"></use>
+            <use href="#flower" transform="translate(388,634)"></use>
+            <use href="#flower2" transform="translate(444,626)"></use>
+            <use href="#flower2" transform="translate(524,676)"></use>
+            <use href="#flower" transform="translate(614,700)"></use>
+            <use href="#flower2" transform="translate(806,626)"></use>
+            <use href="#flower" transform="translate(820,634)"></use>
+          </g>
+          <g stroke="#7C93A8" stroke-width="2.6" fill="none" stroke-linecap="round">
+            <path d="M598,92 q7,-7 14,0 q7,-7 14,0" style="animation:bob 4.6s ease-in-out infinite;"></path>
+            <path d="M645,116 q5,-5 10,0 q5,-5 10,0" opacity=".7" style="animation:bob 5.6s ease-in-out infinite .6s;"></path>
+            <path d="M872,112 q6,-6 12,0 q6,-6 12,0" style="animation:bob 5.1s ease-in-out infinite .3s;"></path>
+          </g>
+        </svg>
+
+        <sc-if value="{{ beam }}" hint-placeholder-val="{{ false }}">
+          <svg viewBox="0 0 1400 890" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;animation:beam-in .5s cubic-bezier(.2,.8,.2,1) both;">
+            <defs>
+              <linearGradient id="beamFade" x1="1" y1="0" x2="0" y2="0">
+                <stop offset="0" stop-color="{{ beam.color }}" stop-opacity=".26"></stop>
+                <stop offset=".55" stop-color="{{ beam.color }}" stop-opacity=".16"></stop>
+                <stop offset="1" stop-color="{{ beam.color }}" stop-opacity=".015"></stop>
+              </linearGradient>
+              <linearGradient id="beamInnerFade" x1="1" y1="0" x2="0" y2="0">
+                <stop offset="0" stop-color="#FFFFFF" stop-opacity=".3"></stop>
+                <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop>
+              </linearGradient>
+            </defs>
+            <sc-for list="{{ beam.cones }}" as="c" hint-placeholder-count="1">
+              <polygon points="{{ c.outer }}" fill="url(#beamFade)"></polygon>
+            </sc-for>
+            <sc-for list="{{ beam.cones }}" as="c" hint-placeholder-count="1">
+              <polygon points="{{ c.inner }}" fill="url(#beamInnerFade)"></polygon>
+            </sc-for>
+            <sc-for list="{{ beam.feet }}" as="f" hint-placeholder-count="1">
+              <ellipse cx="{{ f.x }}" cy="{{ f.y }}" rx="{{ f.rx }}" ry="{{ f.ry }}" fill="{{ beam.color }}" opacity=".22" style="animation:foot-pulse 2.4s ease-in-out infinite;"></ellipse>
+            </sc-for>
+            <sc-for list="{{ beam.feet }}" as="f" hint-placeholder-count="1">
+              <ellipse cx="{{ f.x }}" cy="{{ f.y }}" rx="{{ f.rx }}" ry="{{ f.ry }}" fill="none" stroke="{{ beam.color }}" stroke-width="2" opacity=".7" style="transform-box:fill-box;transform-origin:center;animation:foot-ring 2.4s ease-out infinite;"></ellipse>
+            </sc-for>
+          </svg>
+        </sc-if>
+
+        <sc-for list="{{ spots }}" as="s" hint-placeholder-count="4">
+          <div style="{{ s.stemStyle }}"></div>
+        </sc-for>
+
+        <sc-for list="{{ spots }}" as="s" hint-placeholder-count="4">
+          <span style="{{ s.dotStyle }}"><span style="{{ s.pingStyle }}"></span></span>
+        </sc-for>
+
+        <sc-for list="{{ spots }}" as="s" hint-placeholder-count="4">
+          <button type="button" onClick="{{ s.onClick }}" style="{{ s.chipStyle }}" style-hover="transform:translateY(-2px);box-shadow:0 14px 30px rgba(25,31,40,.18);">
+            <span style="{{ s.iconStyle }}">{{ s.icon }}</span>
+            <span style="display:flex;flex-direction:column;gap:3px;text-align:left;">
+              <span style="font-size:14.5px;font-weight:700;letter-spacing:-0.02em;color:#191F28;white-space:nowrap;">{{ s.label }}</span>
+              <span style="{{ s.blurbStyle }}">{{ s.blurb }}</span>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ detail }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top:28px;border:1px solid #E5E8EB;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 12px 32px rgba(25,31,40,.09);animation:panel-in .4s cubic-bezier(.2,.8,.2,1) both;">
+          <div style="{{ detail.gridStyle }}">
+            <sc-if value="{{ detail.hasImg }}" hint-placeholder-val="{{ true }}">
+              <div style="background:#F7F8FA;display:flex;align-items:center;justify-content:center;padding:32px;border-right:1px solid #E5E8EB;">
+                <img src="{{ detail.img }}" alt="{{ detail.title }}" style="max-width:100%;max-height:420px;object-fit:contain;display:block;border-radius:10px;">
+              </div>
+            </sc-if>
+            <sc-if value="{{ detail.isCloud }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#F7F8FA;display:flex;align-items:center;justify-content:center;padding:32px;border-right:1px solid #E5E8EB;">
+                <svg viewBox="0 0 540 320" style="width:100%;max-width:520px;height:auto;display:block;">
+                  <defs>
+                    <pattern id="maskHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <rect width="9" height="9" fill="#7C8CA3" opacity=".14"></rect>
+                      <line x1="0" y1="0" x2="0" y2="9" stroke="#7C8CA3" stroke-width="2.4" opacity=".65"></line>
+                    </pattern>
+                    <clipPath id="tileL"><rect x="26" y="46" width="200" height="190" rx="8"></rect></clipPath>
+                    <clipPath id="tileR"><rect x="314" y="46" width="200" height="190" rx="8"></rect></clipPath>
+                  </defs>
+
+                  <g clip-path="url(#tileL)">
+                    <rect x="26" y="46" width="200" height="190" fill="#BFE3A8"></rect>
+                    <path d="M26,150 C86,132 106,182 166,164 C196,155 210,168 226,162 L226,236 L26,236 Z" fill="#96CC84"></path>
+                    <path d="M96,46 C112,96 88,132 104,178 C116,214 100,224 96,236" stroke="#8CBFDE" stroke-width="15" fill="none"></path>
+                    <g fill="#EDF1F5" opacity=".55">
+                      <rect x="140" y="86" width="26" height="18"></rect>
+                      <rect x="174" y="104" width="20" height="14"></rect>
+                    </g>
+                    <g fill="#FFFFFF">
+                      <ellipse cx="82" cy="92" rx="36" ry="20"></ellipse>
+                      <ellipse cx="110" cy="84" rx="26" ry="17"></ellipse>
+                      <ellipse cx="176" cy="192" rx="30" ry="17"></ellipse>
+                      <ellipse cx="200" cy="184" rx="20" ry="13"></ellipse>
+                    </g>
+                    <g fill="#5F6B72" opacity=".26">
+                      <ellipse cx="66" cy="116" rx="34" ry="12"></ellipse>
+                      <ellipse cx="160" cy="214" rx="28" ry="10"></ellipse>
+                    </g>
+                  </g>
+                  <rect x="26" y="46" width="200" height="190" rx="8" fill="none" stroke="#D5DBE1" stroke-width="1.5"></rect>
+
+                  <g transform="translate(248,141)">
+                    <path d="M0,0 L38,0" stroke="#7C8CA3" stroke-width="2.6" stroke-linecap="round"></path>
+                    <path d="M30,-7 L40,0 L30,7" fill="none" stroke="#7C8CA3" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <text x="20" y="-16" text-anchor="middle" font-family="inherit" font-size="12.5" font-weight="700" fill="#7C8CA3">AI</text>
+                  </g>
+
+                  <g clip-path="url(#tileR)">
+                    <rect x="314" y="46" width="200" height="190" fill="#E9ECEF"></rect>
+                    <path d="M314,150 C374,132 394,182 454,164 C484,155 498,168 514,162 L514,236 L314,236 Z" fill="#DFE3E7"></path>
+                    <path d="M384,46 C400,96 376,132 392,178 C404,214 388,224 384,236" stroke="#CFD6DC" stroke-width="15" fill="none"></path>
+                    <g fill="url(#maskHatch)" stroke="#7C8CA3" stroke-width="2" stroke-dasharray="6 4">
+                      <ellipse cx="370" cy="92" rx="42" ry="24"></ellipse>
+                      <ellipse cx="466" cy="192" rx="36" ry="20"></ellipse>
+                    </g>
+                    <g fill="none" stroke="#7C8CA3" stroke-width="1.6" stroke-dasharray="4 5" opacity=".75">
+                      <ellipse cx="354" cy="116" rx="36" ry="13"></ellipse>
+                      <ellipse cx="448" cy="214" rx="30" ry="11"></ellipse>
+                    </g>
+                  </g>
+                  <rect x="314" y="46" width="200" height="190" rx="8" fill="none" stroke="#D5DBE1" stroke-width="1.5"></rect>
+
+                  <g font-family="inherit" font-size="13.5" font-weight="700" fill="#4E5968" text-anchor="middle">
+                    <text x="126" y="266">위성 원본 영상</text>
+                    <text x="414" y="266">구름·그림자 마스크</text>
+                  </g>
+                  <g font-family="inherit" font-size="12" fill="#8B95A1" text-anchor="middle">
+                    <text x="126" y="286">구름이 지표를 가림</text>
+                    <text x="414" y="286">가려진 화소를 제외</text>
+                  </g>
+                </svg>
+              </div>
+            </sc-if>
+            <sc-if value="{{ detail.isFog }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#F7F8FA;display:flex;align-items:center;justify-content:center;padding:32px;border-right:1px solid #E5E8EB;">
+                <svg viewBox="0 0 540 320" style="width:100%;max-width:520px;height:auto;display:block;">
+                  <defs>
+                    <linearGradient id="fogSky" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#EAF2F6"></stop>
+                      <stop offset="1" stop-color="#F7FAFC"></stop>
+                    </linearGradient>
+                    <linearGradient id="fogBand" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".25"></stop>
+                      <stop offset="1" stop-color="#FFFFFF" stop-opacity=".95"></stop>
+                    </linearGradient>
+                  </defs>
+
+                  <rect x="20" y="26" width="500" height="222" rx="10" fill="url(#fogSky)" stroke="#D5DBE1" stroke-width="1.5"></rect>
+
+                  <g transform="translate(432,58)">
+                    <rect x="-13" y="-13" width="26" height="26" rx="3" fill="#E3E9EF"></rect>
+                    <rect x="-7" y="-7" width="14" height="14" rx="2" fill="#B9C4D2"></rect>
+                    <rect x="-45" y="-8" width="28" height="16" rx="2" fill="#4FA0A8"></rect>
+                    <rect x="17" y="-8" width="28" height="16" rx="2" fill="#4FA0A8"></rect>
+                  </g>
+                  <g stroke="#4FA0A8" stroke-width="1.6" stroke-dasharray="5 6" opacity=".65">
+                    <path d="M424,80 L150,196"></path>
+                    <path d="M432,80 L286,200"></path>
+                    <path d="M440,80 L398,190"></path>
+                  </g>
+
+                  <g fill="#FFFFFF">
+                    <ellipse cx="150" cy="86" rx="44" ry="20"></ellipse>
+                    <ellipse cx="184" cy="78" rx="30" ry="16"></ellipse>
+                    <ellipse cx="120" cy="80" rx="26" ry="14"></ellipse>
+                  </g>
+                  <path d="M104,106 L214,106" stroke="#9AA5B1" stroke-width="1.4" stroke-dasharray="4 5"></path>
+                  <text x="228" y="92" font-family="inherit" font-size="12.5" font-weight="700" fill="#6B7684">하층운 — 지표와 떨어져 있음</text>
+
+                  <path d="M20,196 L520,196 L520,214 L20,214 Z" fill="url(#fogBand)"></path>
+                  <g fill="#FFFFFF" opacity=".9">
+                    <ellipse cx="120" cy="200" rx="72" ry="14"></ellipse>
+                    <ellipse cx="268" cy="203" rx="88" ry="15"></ellipse>
+                    <ellipse cx="424" cy="199" rx="70" ry="13"></ellipse>
+                  </g>
+                  <text x="42" y="182" font-family="inherit" font-size="12.5" font-weight="700" fill="#4FA0A8">안개 — 지표에 맞닿음</text>
+
+                  <rect x="20" y="214" width="500" height="34" fill="#8CBFDE"></rect>
+                  <g stroke="#C3DEEE" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".9">
+                    <path d="M64,232 q14,-8 28,0"></path>
+                    <path d="M200,238 q14,-8 28,0"></path>
+                    <path d="M344,230 q14,-8 28,0"></path>
+                    <path d="M446,240 q14,-8 28,0"></path>
+                  </g>
+
+                  <g font-family="inherit" font-size="12" fill="#8B95A1">
+                    <text x="20" y="282">위성 채널 차이로 안개와 하층운을 구분하고, 안개의 범위와 지속 시간을 추적합니다.</text>
+                  </g>
+                </svg>
+              </div>
+            </sc-if>
+            <div style="padding:38px 38px 34px;display:flex;flex-direction:column;">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+                <span style="font-size:12px;font-weight:700;letter-spacing:.14em;color:#1B3A6B;padding-top:4px;">{{ detail.kicker }}</span>
+                <button type="button" onClick="{{ close }}" aria-label="닫기" style="flex:none;width:32px;height:32px;border:none;background:#F2F4F6;border-radius:50%;color:#6B7684;font-size:15px;cursor:pointer;line-height:1;" style-hover="background:#E5E8EB;">✕</button>
+              </div>
+              <h3 class="section-h" style="font-size:25px;line-height:1.34;margin-top:12px;text-wrap:pretty;">{{ detail.title }}</h3>
+              <p style="margin-top:14px;font-size:16px;line-height:1.75;color:#4E5968;text-wrap:pretty;">{{ detail.desc }}</p>
+              <div style="margin-top:24px;display:flex;flex-direction:column;gap:11px;">
+                <sc-for list="{{ detail.points }}" as="p" hint-placeholder-count="3">
+                  <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <span style="flex:none;width:5px;height:5px;border-radius:50%;background:#1B3A6B;margin-top:9px;"></span>
+                    <span style="font-size:15px;line-height:1.6;color:#333D4B;">{{ p }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+    </section>
+  </main>
+  <dc-import name="SiteFooter" hint-size="100%,90px"></dc-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const M = 'https://static.wixstatic.com/media/';
+
+const DATA = [
+  {
+    key: 'energy', kicker: 'RENEWABLE ENERGY', color: '#E08A2E', icon: '☀',
+    label: '신재생에너지 분석',
+    blurb: '위성·기상 자료로 태양광, 풍력 등 에너지 잠재량을 분석합니다.',
+    chip: { left: '17.8%', top: '27%' }, dot: { x: '20%', y: '50%' },
+    title: 'Modeling of Renewable Energy Potential',
+    desc: '위성으로 관측한 일사량과 지형·기상 자료를 결합해, 어느 지역에 태양광·풍력 발전소를 세우면 가장 많은 전기를 얻을 수 있는지 지도로 계산합니다.',
+    points: ['위성 기반 일사량·구름량 시계열 분석', '지형과 토지 피복을 반영한 입지 적합도 산정', '한반도 단위 실시간 발전 잠재량 모니터링'],
+    img: M + 'f6a492_3b0f8a987dbe471d97b365b3973d45f3~mv2.png/v1/fill/w_877,h_437,al_c,q_90,enc_avif,quality_auto/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202025-05-08%20164611.png'
+  },
+  {
+    key: 'super', kicker: 'IMAGE FUSION', color: '#2C6ED5', icon: '◈',
+    label: '초해상도 영상 생성',
+    blurb: '여러 위성영상을 AI로 융합해 더 선명한 지표 영상을 만듭니다.',
+    chip: { left: '53.8%', top: '11%' }, dot: { x: '56%', y: '36%' },
+    title: 'Super Resolution Surface Reflectance Generation through Multi-Satellite Image Fusion',
+    desc: '해상도는 낮지만 자주 찍히는 위성과, 드물게 찍히지만 선명한 위성의 영상을 합쳐 자주 찍히면서도 선명한 지표 영상을 만들어 냅니다.',
+    points: ['다중 위성 영상의 시공간 융합', '지표 반사도 초해상 복원', '고빈도·고해상 시계열 자료 생성'],
+    img: M + 'f6a492_6ef5970d7a1548de886e4ca8864632ec~mv2.png/v1/fill/w_923,h_460,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202025-05-08%20165547.png'
+  },
+  {
+    key: 'object', kicker: 'DEEP LEARNING', color: '#5B6FD6', icon: '▣',
+    label: '객체 탐지 연구',
+    blurb: 'AI로 위성영상 속 건물, 도로, 선박을 자동으로 찾아냅니다.',
+    chip: { left: '41.8%', top: '44%' }, dot: { x: '44%', y: '60%' },
+    title: 'Object detection algorithm using deep learning model',
+    desc: '딥러닝 모델이 위성·항공 영상 속의 건물, 차량, 선박 같은 대상을 스스로 찾아냅니다. 사람이 일일이 표시하던 작업을 자동화해 넓은 지역을 빠르게 분석합니다.',
+    points: ['고해상도 영상 기반 객체 검출 모델 학습', '건물·차량·선박 등 다중 클래스 탐지', '재난 피해 규모 추정에 활용'],
+    img: M + 'f6a492_ab0de43d31f2433db995bba583471d5b~mv2.png/v1/fill/w_923,h_460,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202025-05-08%20165111.png'
+  },
+  {
+    key: 'cloud', kicker: 'CLOUD DETECTION', color: '#7C8CA3', icon: '☁',
+    label: '구름 탐지 연구',
+    blurb: '위성영상 속 구름과 구름 그림자를 자동으로 가려냅니다.',
+    chip: { left: '19.3%', top: '2%' }, dot: { x: '21.5%', y: '22%' },
+    title: 'Cloud Detection in Satellite Imagery',
+    desc: '위성영상에서 지표를 가리는 구름과 그림자를 자동으로 찾아 표시합니다. 구름이 섞인 화소를 걸러내야 지표 반사도, 식생, 수질 같은 후속 분석의 정확도가 확보됩니다.',
+    points: ['다분광 밴드 기반 구름·그림자 화소 분류', '딥러닝 구름 마스크 생성', '후속 지표 분석의 전처리 단계로 활용'],
+    img: ''
+  },
+  {
+    key: 'fog', kicker: 'FOG DETECTION', color: '#4FA0A8', icon: '〰',
+    label: '안개 탐지 연구',
+    blurb: '정지궤도 위성으로 해무와 안개의 발생·이동을 관측합니다.',
+    chip: { left: '70.8%', top: '23%' }, dot: { x: '73%', y: '40%' },
+    title: 'Sea Fog and Fog Detection Using Satellite Data',
+    desc: '해상과 육상에 발생하는 안개를 위성 자료로 탐지합니다. 관측소가 없는 바다 위에서도 안개의 범위와 이동을 추적할 수 있어 해상 교통 안전에 활용됩니다.',
+    points: ['주·야간 채널 조합을 이용한 안개 판별', '해무와 하층운의 구분', '안개 발생 시점·지속 시간 추적'],
+    img: ''
+  },
+  {
+    key: 'algae', kicker: 'WATER QUALITY', color: '#2E9E7A', icon: '≈',
+    label: '조류 모니터링 연구',
+    blurb: '위성자료로 새만금호의 조류 발생을 감시하고 변화를 분석합니다.',
+    chip: { left: '67.8%', top: '50%' }, dot: { x: '70%', y: '69%' },
+    title: 'Spatiotemporal Variation of Algae in Saemangeum Lake Using Satellite Data',
+    desc: '새만금호의 녹조가 언제, 어디서, 얼마나 번지는지를 위성 영상으로 추적합니다. 현장에 나가지 않아도 호수 전체의 수질 변화를 주기적으로 볼 수 있습니다.',
+    points: ['위성 반사도에서 클로로필-a 농도 추정', '계절·연도별 녹조 확산 패턴 분석', '현장 관측 자료와의 정확도 검증'],
+    img: M + 'f6a492_7ee88cb8af734396b2832cb3764993fa~mv2.png/v1/fill/w_923,h_460,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202025-05-08%20164812.png'
+  }
+];
+
+class Component extends DCLogic {
+  state = { active: null };
+
+  select(key) { this.setState(s => ({ active: s.active === key ? null : key })); }
+
+  renderVals() {
+    const active = this.state.active;
+    const spots = DATA.map(d => {
+      const on = active === d.key;
+      const chipTopPct = parseFloat(d.chip.top);
+      const dotYPct = parseFloat(d.dot.y);
+      const stemTop = chipTopPct + (on ? 14.6 : 9.4);
+      const stemH = Math.max(dotYPct - stemTop, 0);
+      return {
+        key: d.key, label: d.label, blurb: d.blurb, icon: d.icon,
+        onClick: () => this.select(d.key),
+        blurbStyle: `font-size:12.5px;line-height:1.45;color:#6B7684;text-wrap:pretty;max-width:170px;display:${on ? 'block' : 'none'};`,
+        chipStyle: `position:absolute;left:${d.chip.left};top:${d.chip.top};display:flex;gap:9px;align-items:center;padding:11px 15px 11px 12px;border-radius:14px;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border:1px solid ${on ? d.color : 'rgba(229,232,235,.9)'};box-shadow:${on ? '0 14px 32px rgba(25,31,40,.20)' : '0 6px 18px rgba(25,31,40,.12)'};cursor:pointer;font-family:inherit;transition:all .22s cubic-bezier(.2,.8,.2,1);transform:${on ? 'translateY(-2px)' : 'none'};z-index:3;`,
+        iconStyle: `flex:none;width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;background:${d.color};`,
+        stemStyle: `position:absolute;left:${d.dot.x};top:${stemTop}%;height:${stemH}%;width:2px;background:${d.color};opacity:${on ? 1 : .55};transform:translateX(-1px);z-index:2;transition:all .22s cubic-bezier(.2,.8,.2,1);`,
+        dotStyle: `position:absolute;left:${d.dot.x};top:${d.dot.y};width:13px;height:13px;margin:-6.5px 0 0 -6.5px;border-radius:50%;background:${d.color};border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.22);z-index:3;`,
+        pingStyle: `position:absolute;inset:-2px;border-radius:50%;border:2px solid ${d.color};animation:pin-ping 2.8s ease-out infinite;`
+      };
+    });
+
+    const ad = DATA.find(d => d.key === active);
+    let beam = null;
+    if (ad) {
+      const ax = 1146, ay = 176;
+      const targets = [{ x: parseFloat(ad.dot.x) / 100 * 1400, y: parseFloat(ad.dot.y) / 100 * 890, rx: 62, ry: 24 }];
+      if (ad.key === 'cloud') { targets.length = 0; targets.push({ x: 457, y: 256, rx: 166, ry: 160 }); }
+      beam = {
+        color: ad.key === 'cloud' ? '#5B6E88' : ad.color,
+        feet: ad.key === 'cloud' ? [] : targets,
+        cones: (() => {
+          const l = Math.min(...targets.map(t => t.x - t.rx));
+          const r = Math.max(...targets.map(t => t.x + t.rx));
+          const yBot = Math.max(...targets.map(t => t.y + t.ry));
+          const yTop = Math.min(...targets.map(t => t.y - t.ry));
+          const cx = (l + r) / 2, half = (r - l) / 2;
+          const wide = yTop < ay - 10;
+          return [{
+            outer: wide
+              ? `${ax - 22},${ay} ${ax + 22},${ay} ${r},${yBot} ${l},${yBot} ${l},${yTop}`
+              : `${ax - 22},${ay} ${ax + 22},${ay} ${r},${yBot} ${l},${yBot}`,
+            inner: wide
+              ? `${ax - 9},${ay} ${ax + 9},${ay} ${cx + half * 0.55},${yBot} ${cx - half * 0.55},${yBot} ${cx - half * 0.55},${yTop + 26}`
+              : `${ax - 9},${ay} ${ax + 9},${ay} ${cx + half * 0.42},${yBot} ${cx - half * 0.42},${yBot}`
+          }];
+        })()
+      };
+    }
+
+    return {
+      spots, beam,
+      detail: ad ? {
+        ...ad,
+        hasImg: !!ad.img,
+        isCloud: ad.key === 'cloud',
+        isFog: ad.key === 'fog',
+        gridStyle: `display:grid;grid-template-columns:1.15fr .85fr;`
+      } : null,
+      close: () => this.setState({ active: null })
+    };
+  }
+}
+
+</script>
+</body>
+</html>
