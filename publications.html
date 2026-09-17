@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; letter-spacing:-0.01em; color:#191F28; background:#fff; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#1B3A6B; }
+  .section-h { font-weight:700; color:#191F28; letter-spacing:-0.03em; }
+  input::placeholder { color:#B0B8C1; }
+  input:focus { outline:none; border-color:#1B3A6B; }
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;">
+  <dc-import name="SiteHeader" active="publications" hint-size="100%,82px"></dc-import>
+  <main style="flex:1;">
+
+    <section style="max-width:1100px;margin:0 auto;padding:64px 48px 0;">
+      <h2 class="section-h" style="font-size:40px;">Publications</h2>
+      <p style="margin-top:10px;color:#8B95A1;font-size:16px;">Research Results&nbsp;&nbsp;(*Corresponding Author)</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
+          <div style="background:#F2F4F6;border-radius:20px;padding:24px 26px;display:flex;flex-direction:column;gap:6px;">
+            <span style="font-size:14px;font-weight:600;color:#8B95A1;">{{ s.label }}</span>
+            <span class="section-h" style="font-size:32px;">{{ s.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1100px;margin:0 auto;padding:56px 48px 0;">
+      <h3 class="section-h" style="font-size:22px;margin-bottom:20px;">주요 논문</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <sc-for list="{{ highlights }}" as="hl" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:12px;padding:26px 24px;border:1px solid #E5E8EB;border-radius:20px;box-shadow:0 1px 2px rgba(25,31,40,.04);">
+            <span style="align-self:flex-start;font-size:13px;font-weight:700;color:#1B3A6B;background:#E7ECF5;border-radius:999px;padding:5px 12px;">{{ hl.year }}</span>
+            <span style="font-size:17px;font-weight:700;line-height:1.45;color:#191F28;text-wrap:pretty;">{{ hl.title }}</span>
+            <span style="font-size:14px;color:#4E5968;line-height:1.5;">{{ hl.journal }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1100px;margin:0 auto;padding:56px 48px 88px;">
+      <div style="position:sticky;top:82px;background:#fff;padding:14px 0 18px;z-index:10;">
+        <input type="text" value="{{ query }}" onChange="{{ onSearch }}" placeholder="제목, 저자, 저널로 검색" style="width:100%;height:54px;padding:0 20px;font-size:16px;font-family:inherit;color:#191F28;background:#F2F4F6;border:1px solid #F2F4F6;border-radius:14px;transition:border-color .2s;">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;">
+          <sc-for list="{{ yearChips }}" as="c" hint-placeholder-count="8">
+            <span onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</span>
+          </sc-for>
+        </div>
+        <div style="margin-top:14px;font-size:14px;color:#8B95A1;">{{ resultLabel }}</div>
+      </div>
+
+      <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:36px;margin-top:8px;">
+          <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
+            <div>
+              <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:12px;border-bottom:2px solid #191F28;">
+                <span class="section-h" style="font-size:26px;">{{ g.year }}</span>
+                <span style="font-size:14px;color:#8B95A1;">{{ g.count }}</span>
+              </div>
+              <ul style="list-style:none;display:flex;flex-direction:column;">
+                <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="3">
+                  <li style="display:flex;gap:16px;padding:18px 4px;border-bottom:1px solid #E5E8EB;">
+                    <span style="flex-shrink:0;width:30px;font-size:14px;font-weight:700;color:#B0B8C1;padding-top:2px;">{{ it.num }}</span>
+                    <span style="flex:1;font-size:15px;line-height:1.7;color:#4E5968;text-wrap:pretty;">{{ it.text }}</span>
+                    <sc-if value="{{ it.corr }}" hint-placeholder-val="{{ false }}">
+                      <span style="flex-shrink:0;align-self:flex-start;font-size:12px;font-weight:700;color:#1B3A6B;background:#E7ECF5;border-radius:999px;padding:5px 10px;white-space:nowrap;">교신저자</span>
+                    </sc-if>
+                  </li>
+                </sc-for>
+              </ul>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:40px;padding:60px 24px;text-align:center;background:#F2F4F6;border-radius:20px;">
+          <div style="font-size:17px;font-weight:700;color:#191F28;">검색 결과가 없습니다</div>
+          <div style="margin-top:8px;font-size:15px;color:#8B95A1;">다른 키워드나 연도로 다시 찾아보세요.</div>
+        </div>
+      </sc-if>
+    </section>
+
+  </main>
+  <dc-import name="SiteFooter" hint-size="100%,90px"></dc-import>
+</div>
+
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1B3A6B"/><text x="50" y="62" font-family="sans-serif" font-size="30" font-weight="700" fill="#fff" text-anchor="middle">PUB</text></svg>
+</template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { query: '', year: 'All' };
+  renderVals() {
+    const byYear = [
+      { year: '2026', items: [
+        'Ha, J., Jeong, S., Min, S., Lee, K., & Yeom*, J. (2026). Utilizing deep learning techniques in operational system of geo-KOMPSAT-2A satellite for estimating solar radiation and aerosol optical depth. GIScience & Remote Sensing, 62(1).',
+        'Kim, H., Jeon, J., Wie, J., Yeom*, J., & Kim, G. (2026). Spatiotemporal attention with conditional feature modulation for satellite-based solar irradiance prediction. IEEE Geoscience and Remote Sensing Letters, 23, 1000605.'
+      ]},
+      { year: '2025', items: [
+        'S.H. Kim; D.H. Han; Y.J. Lee; E.S. Doo; H. Oh; Ko, J.; J.M. Yeom*, 2025, Evaluation of Cloud Mask Performance of KOMPSAT-3 Top-of-Atmosphere Reflectance Incorporating Deeplabv3+ with Resnet 101 Model. Applied Sciences, 15(8), 4339.'
+      ]},
+      { year: '2024', items: [
+        'S.-T., J.M. Yeom*, Ko, J., Ban, J., Shin, T., 2024, Deep learning-enhanced remote sensing-integrated crop modeling for rice yield prediction, Ecological Informatics, 01, 1-11.',
+        'J.M. Yeom*, Ahn, H., Yoo, J., Ko, J., 2024, Enhanced Short-Term Prediction of Solar Radiation Using HRNet Model With Geostationary Satellite Data, IEEE Geoscience and Remote Sensing Letters, 21(01), 1-5.',
+        'Kim, H., J.M. Yeom, Kim, B., Moon, H., Shin, S., Lee, H., Ha, J., Jeong, S.-T., 2024, Effect of wind speed and net radiation on the oasis effect in temperate rice paddy fields, Agricultural & Environmental Letters, 01, 1-6.',
+        'Kim, H., J.M. Yeom, Moon, H., Jo, E., Jo, Y., Shin, S., Lee, H., Ha, J., Jeong, S.-T., 2024, Investigating the relationship between temperature and soil CO2 emission according to paddy water condition, International Agrophysics, 01, 187-194.'
+      ]},
+      { year: '2023', items: [
+        'S. Jeong, Y. Ryu, B. Dechant, X. Li, J. Kong, W. Choi, M. Kang, J.M. Yeom, J. Lim, K. Jang, J. Chun, 2023, Tracking diurnal to seasonal variations of gross primary productivity using a geostationary satellite, GK-2A advanced meteorological imager. Remote Sensing of Environment, 284.'
+      ]},
+      { year: '2022', items: [
+        'S. Park, J. Lee, J.M. Yeom*, E. Seo, J. Im, 2022, Performance of Drought Indices in Assessing Rice Yield in North Korea and South Korea under the Different Agricultural Systems. Remote Sensing, 14(23).',
+        'S. Jeong, J. Ko, T. Shin, J.M. Yeom, 2022, Incorporation of machine learning and deep neural network approaches into a remote sensing-integrated crop model for the simulation of rice growth. Scientific Reports, 12(1).',
+        'J.-H. Ryu, D. Oh, J. Ko, H.Y. Kim, J.M. Yeom, J. Cho, 2022, Remote Sensing-Based Evaluation of Heat Stress Damage on Paddy Rice Using NDVI and PRI Measured at Leaf and Canopy Scales. Agronomy, 12(8).',
+        'S. Jeong, J. Ko, T. Shin, J.M. Yeom, 2022, Tracking diurnal to seasonal variations of gross primary productivity using a geostationary satellite, GK-2A advanced meteorological imager. Remote Sensing of Environment, 284.',
+        'J.M. Yeom, S. Jeong, J. Ha, K. Lee, C. Lee, S. Park, 2022, Estimation of the Hourly Aerosol Optical Depth from GOCI Geostationary Satellite Data: Deep Neural Network, Machine Learning, and Physical Models. IEEE Transactions on Geoscience and Remote Sensing, 60.'
+      ]},
+      { year: '2021', items: [
+        'W. Xue, S. Jeong, J. Ko, J.M. Yeom, 2021, Contribution of Biophysical Factors to Regional Variations of Evapotranspiration and Seasonal Cooling Effects in Paddy Rice in South Korea. Remote Sensing, 13(19), 3992.',
+        'J.M. Yeom, S. Jeong, J.S. Ha, K.H. Lee, C.S. Lee, S. Park, 2021, Estimation of the Hourly Aerosol Optical Depth from GOCI Geostationary Satellite Data. IEEE Transactions on Geoscience and Remote Sensing, 60.',
+        'S. Jeong, J. Ko*, J.M. Yeom*, 2021, Predicting scalable rice yield through synthetic use of crop and deep learning models with satellite data in South and North Korea. Science of the Total Environment, 802.',
+        'C. Lee, K. Lee, S. Kim, J. Yu, S. Jeong, J.M. Yeom*, 2021, Hourly Ground-Level PM2.5 Estimation Using Geostationary Satellite and Reanalysis Data via Deep Learning. Remote Sensing, 13(11), 2121.',
+        'J.M. Yeom, S. Jeong, R.C. Deo, J. Ko, 2021, Mapping rice area and yield in northeastern asia by incorporating a crop model with dense vegetation index profiles from a geostationary satellite. GIScience & Remote Sensing, 58(1), 1-27.'
+      ]},
+      { year: '2020', items: [
+        'J.M. Yeom, R.C. Deo, J.F. Adamowski, S. Park, C.S. Lee, 2020, Spatial mapping of short-term solar radiation prediction incorporating geostationary satellite images coupled with deep convolutional LSTM networks for South Korea. Environmental Research Letters, 15.',
+        'K.S. Lee, S.R. Chung, C. Lee, M. Seo, S. Choi, N.H. Seong, D. Jin, M. Kang, J.M. Yeom, J.L. Roujean, D. Jung, S. Sim, K.S. Han, 2020, Development of Land Surface Albedo Algorithm for the GK-2A/AMI Instrument. Remote Sensing, 12.',
+        'J.M. Yeom, J.L. Roujean, K.S. Han, K.S. Lee, H.W. Kim, 2020, Thin cloud detection over land using background surface reflectance based on the BRDF model from Geostationary Ocean Color Imager (GOCI) Satellite. Remote Sensing of Environment, 239.',
+        'J.M. Yeom, R.C. Deo, J.F. Adamowski, T. Chae, D.S. Kim, K.S. Han, D.Y. Kim, 2020, Exploring solar and wind energy resources in North Korea with COMS MI Geostationary satellite data coupled with numerical weather prediction reanalysis variables. Renewable and Sustainable Energy Reviews, 119, 109570.',
+        'S. Jeong, J. Ko*, M. Kang, J.M. Yeom*, C. Tim Ng, S.H. Lee, Y.G. Lee, H.Y. Kim, 2020, Geographical variations in gross primary production and evapotranspiration of paddy rice in the Korean Peninsula. Science of the Total Environment, 714.',
+        'K.S. Lee, C.S. Lee, M. Seo, S. Choi, N.H. Seong, D. Jin, J.M. Yeom, K.S. Han, 2020, Improvements of 6S Look-Up-Table Based Surface Reflectance Employing Minimum Curvature Surface Method. Asia-Pacific Journal of Atmospheric Sciences, 56.'
+      ]},
+      { year: '2019', items: [
+        'V.C. Nguyen, S. Jeong, J. Ko, C.T. Ng, J.M. Yeom, 2019, Mathematical Integration of Remotely-Sensed Information into a Crop Modelling Process for Mapping Crop Productivity. Remote Sensing, 11, 2131.',
+        'J.M. Yeom, S. Park, T. Chae, J.Y. Kim, C.S. Lee, 2019, Spatial assessment of solar radiation by machine learning and deep neural network models using data provided by the COMS MI geostationary satellite: a case study in South Korea. Sensors, 19, 2082.'
+      ]},
+      { year: '2018', items: [
+        'J.M. Yeom, S. Jeong, G. Jeong, C.T. Ng, R.C. Deo, J. Ko, 2018, Monitoring paddy productivity in North Korea employing geostationary satellite images integrated with GRAMI-rice model. Scientific Reports, 8:16121.',
+        'S. Jeong, J. Ko*, J.M. Yeom*, 2018, Nationwide Projection of Rice Yield Using a Crop Model Integrated with Geostationary Satellite Imagery: A Case Study in South Korea. Remote Sensing, 10, 1665.',
+        'J.M. Yeom, J. Ko, J. Hwang, C.S. Lee, C.U. Choi, S. Jeong, 2018, Updating Absolute Radiometric Characteristics for KOMPSAT-3 and KOMPSAT-3A Multispectral Imaging Sensors Using Well-Characterized Pseudo-Invariant Tarps and Microtops II. Remote Sensing, 10, 697.',
+        'S. Jeong, J. Ko*, J. Choi, W. Xue, J.M. Yeom*, 2018, Application of an unmanned aerial system for monitoring paddy productivity using the GRAMI-rice model. International Journal of Remote Sensing, 39(8), 2441-2462.',
+        'S. Hong, Y.W. Lee, J.H. Ryu, J.M. Yeom, W. Kim, J. Cho, 2018, Satellite-based assessment of rapid mega-urban development on agricultural land. Journal of Agricultural Meteorology, 74(2), 87-91.'
+      ]},
+      { year: '2017', items: [
+        'K.S. Lee, D. Jin, J.M. Yeom, M. Seo, S. Choi, J.J. Kim, K.S. Han, 2017, New Approach for Snow Cover Detection through Spectral Pattern Recognition with MODIS Data. Journal of Sensors, 2017, 15.',
+        'H.W. Kim, J.M. Yeom*, D.G. Shin, S.W. Choi, K.S. Han, J.L. Roujean, 2017, An assessment of thin cloud detection by applying BRDF model-based background surface reflectance using GOCI: a case study for South Korea. Journal of Geophysical Research: Atmospheres, 122.',
+        'C.S. Lee, K.S. Han, J.M. Yeom, K. Lee, M. Seo, J. Hong, J.W. Hong, K. Lee, J. Shin, I. Chul S., J. Chun, J.L. Roujean, 2017, Surface albedo from the geostationary COMS/Meteorological Imager (MI) observation system. GIScience & Remote Sensing, 55.',
+        'D.W. Kim, R.C. Deo, J.S. Lee, J.M. Yeom, 2017, Mapping heatwave vulnerability in Korea. Natural Hazards, 89.',
+        'J.M. Yeom, R.C. Deo, J.H. Chun, J.K. Hong, D.S. Kim, K.S. Han, J.I. Cho, 2017, Synthetic retrieval of hourly net ecosystem exchange using the neural network model with combined MI and GOCI geostationary sensor datasets and ground-based measurements. International Journal of Remote Sensing, 38.',
+        'J.M. Yeom, J.S. Hwang, J.H. Jung, K.H. Lee, C.S. Lee, 2017, Initial radiometric characteristics of KOMPSAT-3A multispectral imagery using the 6S radiative transfer model, well-known radiometric tarps, and MFRSR measurements. Remote Sensing, 9(130).',
+        'M. Kim, J. Ko, S. Jeong, J.M. Yeom, H. Kim, 2017, Monitoring canopy growth and grain yield of paddy rice in South Korea by using the GRAMI model and high spatial resolution imagery. GIScience & Remote Sensing.'
+      ]},
+      { year: '2016', items: [
+        'J.M. Yeom, J.S. Hwang, C.G. Jin, D.H. Lee, K.S. Han, 2016, Radiometric characteristics of KOMPSAT-3 Multispectral using the spectra of well-known surface tarps. IEEE Transactions on Geoscience and Remote Sensing, 54(10).',
+        'J.M. Yeom, Y.K. Seo, D.S. Kim, K.S. Han, 2016, Solar radiation received by slopes using COMS imagery, a physically based radiation model, and GLOBE. Journal of Sensors, 2016.',
+        'S.l. Kim, D.S. Ahn, K.S. Han, J.M. Yeom*, 2016, Improved Vegetation Profiles with GOCI Imagery Using Optimized BRDF Composite. Journal of Sensors, 2016.',
+        'M. Seo, H.C. Kim, M. Huh, J.M. Yeom, C.S. Lee, K.S. Lee, S. Choi, K.S. Han, 2016, Long-Term Variability of Surface Albedo and Its Correlation with Climatic Variables over Antarctica. Remote Sensing, 8, 981.'
+      ]},
+      { year: '2015', items: [
+        'J.M. Yeom, H.O. Kim, 2015, Comparison of NDVIs from GOCI and MODIS Data towards Improved Assessment of Crop Temporal Dynamics in the Case of Paddy Rice. Remote Sensing, 7, 113-11343.',
+        'J.M. Yeom, J.H. Ko, H.O. Kim, 2015, Application of GOCI-derived vegetation index profiles to estimation of paddy rice yield using the GRAMI rice model. Computers and Electronics in Agriculture, 118, 1-8.',
+        'K.S. Han, Y.Y. Park, J.M. Yeom*, 2015, Detection of Change in Vegetation in the Surrounding Desert Areas of Northwest China and Mongolia with Multi-Temporal Satellite Images. Asia-Pacific Journal of Atmospheric Science, 51(2), 173-181.',
+        'J.M. Yeom, C.S. Lee, S.J. Park, J.H. Ryu, J.J. Kim, H.C. Kim, K.S. Han, 2015, Evapotranspiration in Korea estimated by application of a neural network to satellite images. Remote Sensing Letters, 6(6), 429-438.',
+        'K.S. Han, J.M. Yeom*, C.S. Lee, I.C. Shin, D.H. Kim, 2015, Improved estimation of insolation by using calibrated COMS MI images over South Korea. Remote Sensing Letters, 6(3), 175-182.',
+        'H.O. Kim, J.M. Yeom*, 2015, Sensitivity of vegetation indices to spatial degradation of RapidEye imagery for paddy rice detection: a case study of South Korea. GIScience & Remote Sensing, 52(1), 1-17.',
+        'J.H. Ryu, K.S. Han, J. Cho, C.S. Lee, H.J. Woon, J.M. Yeom, M.L. Ou, 2015, Estimating midday near-surface air temperature by weighted consideration of surface and atmospheric moisture conditions using COMS and SPOT satellite data. International Journal of Remote Sensing, 36(13), 3503-3518.',
+        'J. Ko, S. Jeong, J.M. Yeom, H. Kim, J.O. Ban, H.Y. Kim, 2015, Simulation and mapping of rice growth and yield based on remote sensing. Journal of Applied Remote Sensing, 9.',
+        'C.S. Lee, J.M. Yeom, H.L. Lee, J.J. Kim, K.S. Han, 2015, Sensitivity Analysis of 6S-Based Look-Up Table for Surface Reflectance Retrieval. Asia-Pacific Journal of Atmospheric Sciences, 51(1), 91-101.',
+        'E.B. Park, K.S. Han, J.M. Yeom, C.S. Lee, J.H. Ryu, H. Kim, D.H. Kim, 2015, Effects of GSICS correction on estimation of sea surface temperature using COMS data. International Journal of Remote Sensing, 36(4), 1026-1037.'
+      ]},
+      { year: '2014', items: [
+        'H.O. Kim, J.M. Yeom*, 2014, Effect of red-edge and texture features for object-based paddy rice crop classification using RapidEye multispectral satellite image data. International Journal of Remote Sensing, 35(19), 7046-7068.'
+      ]},
+      { year: '2013', items: [
+        'J.M. Yeom, H.O. Kim, 2013, Feasibility of using GOCI data for land applications after atmospheric correction and BRDF modelling. International Journal of Remote Sensing, 34(20), 7329-7339.'
+      ]},
+      { year: '2012', items: [
+        'J.M. Yeom, K.S. Han, J.J. Kim, 2012, Evaluation on Penetration Rate of Cloud for Incoming Solar Radiation Using Geostationary Satellite Data. Asia-Pacific Journal of Atmospheric Sciences, 115-123.'
+      ]},
+      { year: '2010', items: [
+        'J.M. Yeom, K.S. Han, 2010, Improved estimation of surface solar insolation using a neural network and MTSAT-1R data. Computers & Geosciences, 36, 590-597.'
+      ]},
+      { year: '2009', items: [
+        'J.M. Yeom, 2009, An Efficiency Analysis for Data Synthesis of Sun- and Geo-Synchronous Satellites in Kernel-driven BRDF Model. Asia-Pacific Journal of Atmospheric Science, 45(4), 499-511.'
+      ]},
+      { year: '2008', items: [
+        'J.M. Yeom, K.S. Han, Y.S. Kim, J.D. Jang, 2008, Neural network determination of cloud attenuation to estimate insolation using MTSAT-1R data. International Journal of Remote Sensing, 29(21), 6193-6208.'
+      ]}
+    ];
+
+    const total = byYear.reduce((n, g) => n + g.items.length, 0);
+    const corrTotal = byYear.reduce((n, g) => n + g.items.filter(t => t.indexOf('Yeom*') !== -1).length, 0);
+
+    const q = (this.state.query || '').trim().toLowerCase();
+    const yr = this.state.year;
+    const groups = byYear
+      .filter(g => yr === 'All' || g.year === yr)
+      .map(g => {
+        const items = g.items.filter(t => !q || t.toLowerCase().indexOf(q) !== -1);
+        return { year: g.year, count: items.length + '편', items: items.map((t, i) => ({ num: String(i + 1).padStart(2, '0'), text: t, corr: t.indexOf('Yeom*') !== -1 })) };
+      })
+      .filter(g => g.items.length);
+    const shown = groups.reduce((n, g) => n + g.items.length, 0);
+
+    const chipStyle = (on) => 'padding:9px 16px;border-radius:999px;font-size:14px;cursor:pointer;user-select:none;transition:background .2s,color .2s;' + (on ? 'font-weight:700;color:#fff;background:#1B3A6B;' : 'font-weight:600;color:#4E5968;background:#F2F4F6;');
+    const chip = (label) => ({ label, style: chipStyle(yr === label), onClick: () => this.setState({ year: label }) });
+
+    return {
+      stats: [
+        { label: '전체 논문', value: total + '편' },
+        { label: '교신저자 논문', value: corrTotal + '편' },
+        { label: '연구 기간', value: '2008 – 2026' }
+      ],
+      highlights: [
+        { year: '2026', title: 'Utilizing deep learning techniques in operational system of geo-KOMPSAT-2A satellite for estimating solar radiation and aerosol optical depth', journal: 'GIScience & Remote Sensing, 62(1)' },
+        { year: '2026', title: 'Spatiotemporal attention with conditional feature modulation for satellite-based solar irradiance prediction', journal: 'IEEE Geoscience and Remote Sensing Letters, 23' },
+        { year: '2025', title: 'Evaluation of Cloud Mask Performance of KOMPSAT-3 Top-of-Atmosphere Reflectance Incorporating Deeplabv3+ with Resnet 101 Model', journal: 'Applied Sciences, 15(8)' }
+      ],
+      query: this.state.query,
+      onSearch: (e) => this.setState({ query: e.target.value }),
+      yearChips: [chip('All')].concat(byYear.map(g => chip(g.year))),
+      groups,
+      hasResults: groups.length > 0,
+      noResults: groups.length === 0,
+      resultLabel: shown + '편의 논문'
+    };
+  }
+}
+</script>
+</body>
+</html>

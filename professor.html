@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; letter-spacing:-0.01em; color:#191F28; background:#fff; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#1B3A6B; }
+  .section-h { font-weight:700; color:#191F28; letter-spacing:-0.03em; }
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;">
+  <dc-import name="SiteHeader" active="professor" hint-size="100%,82px"></dc-import>
+  <main style="flex:1;background:#F2F4F6;">
+    <section style="max-width:1100px;margin:0 auto;padding:72px 48px;">
+      <h2 class="section-h" style="font-size:34px;margin-bottom:36px;">Professor</h2>
+      <div style="display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start;">
+        <div>
+          <img src="https://static.wixstatic.com/media/f6a492_2db4874be7af4bd8a6833344fbbf7b09~mv2.png/v1/fill/w_400,h_420,al_c,q_90,enc_avif,quality_auto/f6a492_2db4874be7af4bd8a6833344fbbf7b09~mv2.png" alt="Jong-min Yeom" style="width:100%;aspect-ratio:400/420;object-fit:cover;border:1px solid #E5E8EB;background:#fff;display:block;border-radius:20px;box-shadow:0px 5px 10px rgba(0,0,0,0.06);">
+          <h3 class="section-h" style="font-size:26px;margin-top:18px;">Jong-min Yeom</h3>
+          <div style="margin-top:14px;font-size:14px;line-height:1.9;color:#4E5968;">
+            <div><b style="color:#191F28;">POSITION</b> Associate Prof.</div>
+            <div><b style="color:#191F28;">TEL</b> 063-270-3350</div>
+            <div><b style="color:#191F28;">E-MAIL</b> jmyeom@jbnu.ac.kr / yeom.jongmin@gmail.com</div>
+            <div><b style="color:#191F28;">HOMEPAGE</b> <a href="http://ers.jbnu.ac.kr" style="color:#1B3A6B;">http://ers.jbnu.ac.kr</a></div>
+            <div><b style="color:#191F28;">OFFICE</b> Building 15-4, Room 207</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:28px;">
+          <sc-for list="{{ profBlocks }}" as="b" hint-placeholder-count="5">
+            <div style="background:#fff;border:1px solid #E5E8EB;border-radius:20px;padding:26px 28px;">
+              <h4 class="section-h" style="font-size:18px;letter-spacing:.02em;color:#1B3A6B;margin-bottom:14px;">{{ b.title }}</h4>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;">
+                <sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3">
+                  <li style="font-size:14px;line-height:1.6;color:#4E5968;">
+                    <sc-if value="{{ it.period }}" hint-placeholder-val="x">
+                      <span style="display:block;font-weight:700;color:#191F28;">{{ it.period }}</span>
+                    </sc-if>
+                    <span>{{ it.text }}</span>
+                  </li>
+                </sc-for>
+              </ul>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+  </main>
+  <dc-import name="SiteFooter" hint-size="100%,90px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      profBlocks: [
+        { title: 'FIELD OF STUDY', items: [
+          { text: 'Satellite-Based Environmental Remote Sensing' },
+          { text: 'Artificial Intelligence (Machine Learning, Deep Learning)' },
+          { text: 'Satellite Imagery Processing and Modeling' },
+          { text: 'Modeling of Renewable Energy Potential' },
+          { text: 'Predictive Research on Global Environmental Changes' }
+        ]},
+        { title: 'EDUCATION', items: [
+          { period: '2005.03∼2009.02', text: 'Ph.D. Dept. of Environmental Atmospheric Sciences, Pukyong National University, Busan, Korea (2009). Thesis: An improved design of solar surface radiation parameterization using satellite data' },
+          { period: '2003.03∼2005.02', text: 'M.Sc. Dept. of Environmental Atmospheric Sciences, Pukyong National University, Busan, Korea (2005). Dissertation: Reflectance normalization via BRDF model for the Korean vegetation using MODIS 250m Data' },
+          { period: '1996.03∼2003.02', text: 'B.Sc. Dept. of Environmental Atmospheric Sciences, Pukyong National University, Busan, Korea (2003)' }
+        ]},
+        { title: 'EMPLOYMENT', items: [
+          { period: '2023.04∼Present', text: 'Associate Professor, Jeonbuk National University, Department of Earth and Environmental Sciences' },
+          { period: '2010.09∼2023.03', text: 'Senior Researcher, Satellite Operation Center, Satellite Application Division, Korea Aerospace Research Institute (KARI)' },
+          { period: '2015.03∼2018.02', text: 'Postdoctoral Researcher, Geographical Information Science Center of Excellence Department, South Dakota State University' },
+          { period: '2009.03∼2009.08', text: 'Postdoctoral Researcher, Brain Korea 21 Graduate School of Earth Environmental System, Pukyong National University' }
+        ]},
+        { title: 'PROFESSIONAL SERVICE', items: [
+          { period: '2013.01∼Present', text: 'Associate editor, Korean Journal of Remote Sensing' },
+          { period: '2019.10∼Present', text: 'Associate editor, GEO Data Journal' }
+        ]},
+        { title: 'ACHIEVEMENTS', items: [
+          { period: '2022.10', text: 'Outstanding Academic Award, GAIDAS' },
+          { period: '2022.10', text: 'Outstanding Poster Award, KOSAE' },
+          { period: '2015.10', text: 'Outstanding Research Award, KARI' },
+          { period: '2008.10', text: 'Outstanding thesis award, Asia GIS Academy' }
+        ]}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
