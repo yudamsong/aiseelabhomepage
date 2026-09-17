@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; letter-spacing:-0.01em; color:#191F28; background:#fff; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#1B3A6B; }
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;">
+  <dc-import name="SiteHeader" active="members" hint-size="100%,82px"></dc-import>
+  <main style="flex:1;">
+    <dc-import name="TeamShowcase" title="Members" list="{{ members }}" hint-size="100%,520px"></dc-import>
+  </main>
+  <dc-import name="SiteFooter" hint-size="100%,90px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const M = 'https://static.wixstatic.com/media/';
+    return {
+      members: [
+        { role: 'Post-doc', name: 'Daeseong Jeong', major: 'Department of Climate, Environment and Energy', email: '', img: 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263 350"><rect width="263" height="350" fill="#E8EBEF"/><circle cx="131" cy="140" r="46" fill="#C4CBD4"/><path d="M41 320c0-52 40-88 90-88s90 36 90 88z" fill="#C4CBD4"/></svg>') },
+        { role: 'PhD course', name: 'Dongjin Kim', major: 'Department of Climate, Environment and Energy', email: 'xodjsk86@gmail.com', researchKo: '딥러닝 기반 단기 일사량 예측 및 재분석자료 대비 예측자료의 딥러닝 기반 편의 보정 연구', researchEn: 'Deep Learning-based Short-term Solar Radiation Forecasting / Deep Learning-based Bias Correction of Forecasting data against Reanalysis.', img: M + 'f6a492_e89b89bd7e0742a990d9b877ca9fc22c~mv2.jpg/v1/crop/x_4,y_1,w_2271,h_3023/fill/w_263,h_350,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/KakaoTalk_20260319_163639848.jpg' },
+        { role: 'M.S. course', name: 'Suhwan Kim', major: 'Department of Climate, Environment and Energy', email: 'tn156@jbnu.ac.kr', researchKo: 'GK2A 위성 자료를 활용한 AI 기반 안개 탐지 및 시정 산출 / GK2A 위성 자료를 활용한 지상 기온 추정', researchEn: 'AI-Based Fog Detection and Visibility Retrieval Using GK2A Satellite Data / Near-Surface Air Temperature Estimation Using GK2A Satellite Data', img: M + 'f6a492_ed7b1cfb2e684f9bb29f2d3fa92cdf57~mv2.png/v1/fill/w_263,h_350,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/temp_1702093145595100.png' },
+        { role: 'M.S. course', name: 'Yejin Lee', major: 'Department of Climate, Environment and Energy', email: 'dldpwls020527@gmail.com', researchKo: '기후·기상 자료를 활용한 딥러닝 기반 준계절 일사량 예측 / 딥러닝 기반 위성 원격탐사를 활용한 클로로필-a 추정', researchEn: 'Deep Learning-based Subseasonal Solar Irradiance Forecasting using Climate and Meteorological Data / Deep Learning-based Satellite Remote Sensing for Chlorophyll-a Estimation', img: M + 'f6a492_d515c5ff1dd44ac4bf242cb3cd95bab2~mv2.png/v1/crop/x_14,y_0,w_381,h_507/fill/w_263,h_350,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/temp_1703585089501100.png' },
+        { role: 'M.S. course', name: 'Doehee Han', major: 'Department of Climate, Environment and Energy', email: 'hdh8802@jbnu.ac.kr', researchKo: '다중위성을 활용한 딥러닝 기반 초해상도 지표반사도 생성 연구', researchEn: "Deep Learning-Based Generation of Super-Resolution Surface Reflectance Using Multi-Satellite Data", img: M + 'f6a492_0ce8333ec19a4ebbb9a75f61be4e0d48~mv2.jpg/v1/crop/x_9,y_0,w_533,h_709/fill/w_263,h_350,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/temp_1738568882530100.jpg' },
+        { role: 'M.S. course', name: 'Sieun Song', major: 'Department of Climate, Environment and Energy', email: 'songsieun424@jbnu.ac.kr', researchKo: '다목적실용위성 지표반사도 일관성 확보를 위한 데이터 보정 기술 개발', researchEn: 'Development of a Surface Reflectance Consistency Algorithm between KOMPSAT-3/3A and Sentinel-2A/B Satellites', img: M + 'f6a492_33971cb37e1e4aa394c38c6c7036ec73~mv2.jpg/v1/crop/x_18,y_0,w_1014,h_1350/fill/w_263,h_350,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/temp_1735867916271100.jpg' },
+        { role: 'Bachelor student', name: 'Dowon Kim', major: 'Earth and environmental science', email: 'redtvdr@naver.com', researchKo: '위성 파운데이션 모델 임베딩 기반 대표 패치 선택을 통한 데이터 효율적 구름·구름그림자 탐지', researchEn: 'Core-Set Selection for Data-Efficient Cloud and Cloud Shadow Segmentation Using Satellite Foundation Model Embeddings', img: M + 'f6a492_542802c87aa44ad1aee378a52256d8f9~mv2.jpg/v1/fill/w_267,h_343,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/temp_1735867947153100.jpg' },
+        { role: 'Team manager', name: 'Jisu Ryu', major: '—', email: 'ryujisu@jbnu.ac.kr', img: M + 'f6a492_89ea48040f874d25ae076decbf7ca0c4~mv2.jpg/v1/crop/x_9,y_0,w_533,h_709/fill/w_263,h_350,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/temp_1738568882530100_edited.jpg' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

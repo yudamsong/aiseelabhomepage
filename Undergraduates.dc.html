@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; letter-spacing:-0.01em; color:#191F28; background:#fff; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#1B3A6B; }
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;">
+  <dc-import name="SiteHeader" active="undergraduates" hint-size="100%,82px"></dc-import>
+  <main style="flex:1;">
+    <dc-import name="TeamShowcase" title="Undergraduates" list="{{ undergraduates }}" hint-size="100%,460px"></dc-import>
+  </main>
+  <dc-import name="SiteFooter" hint-size="100%,90px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const M = 'https://static.wixstatic.com/media/';
+    return {
+      undergraduates: [
+        { role: 'Bachelor student', name: 'Yoonji Kim', major: 'Bioindustrial Machinery Engineering', email: 'rladbswl0306@naver.com', researchKo: 'ECMWF 예측자료와 ERA5 재분석자료를 이용한 토양수분지수(SMI) 기반 농업가뭄 예측 연구', researchEn: 'Soil-moisture-index-based agricultural drought forecasting using ECMWF forecast and ERA5 reanalysis data.', img: M + 'f6a492_c49d0772d04443a4bcf41c46b9bbeb85~mv2.jpg/v1/crop/x_0,y_22,w_915,h_1175/fill/w_267,h_343,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/temp_1735867974676100.jpg' },
+        { role: 'Bachelor student', name: 'yudam Song', major: 'Earth and environmental science', email: 'dam1452@naver.com', researchKo: '농림위성(CAS500-4) 탑재체 절대복사계수의 발사 후 최종 성능 검증 지원을 위한 현장관측', researchEn: 'Field observations supporting post-launch final performance validation of the absolute radiometric coefficients of the CAS500-4 payload.', img: M + 'f6a492_694e9a0c3e624d16846499770a414a62~mv2.jpg/v1/crop/x_28,y_0,w_747,h_960/fill/w_267,h_343,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/KakaoTalk_20250411_155046308.jpg' },
+        { role: 'Bachelor student', name: 'kangmin Kim', major: 'Earth and environmental science', email: 'whykevin@jbnu.ac.kr', researchKo: '위성 활용 분야에 관심', researchEn: 'Interested in satellite applications', img: 'uploads/KakaoTalk_20260805_163820148.jpg' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

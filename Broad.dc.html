@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; letter-spacing:-0.01em; color:#191F28; background:#fff; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#1B3A6B; }
+  .section-h { font-weight:700; color:#191F28; letter-spacing:-0.03em; }
+  @keyframes tds-scrim { from { opacity:0 } to { opacity:1 } }
+  @keyframes tds-sheet-up { from { transform:translateY(100%) } to { transform:translateY(0) } }
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;">
+  <dc-import name="SiteHeader" active="broad" hint-size="100%,82px"></dc-import>
+  <main style="flex:1;">
+    <section style="max-width:1100px;margin:0 auto;padding:72px 48px 88px;">
+      <h2 class="section-h" style="font-size:34px;margin-bottom:24px;">Broad</h2>
+      <div style="display:inline-flex;gap:4px;padding:4px;background:#F2F4F6;border-radius:14px;margin-bottom:36px;">
+        <sc-for list="{{ broadTabs }}" as="t" hint-placeholder-count="3">
+          <span onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</span>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px 28px;">
+        <sc-for list="{{ filteredNews }}" as="item" hint-placeholder-count="3">
+          <div onClick="{{ item.onOpen }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid #E5E8EB;border-radius:20px;overflow:hidden;box-shadow:0px 5px 10px rgba(0,0,0,0.06);cursor:pointer;">
+            <img src="{{ item.img }}" alt="{{ item.title }}" style="width:100%;aspect-ratio:4/3;object-fit:cover;background:#F2F4F6;display:block;">
+            <div style="display:flex;flex-direction:column;gap:10px;padding:20px 22px 24px;">
+              <span style="font-size:17px;font-weight:700;line-height:1.4;color:#191F28;text-wrap:pretty;">{{ item.title }}</span>
+              <span style="font-size:14px;color:#8B95A1;">{{ item.date }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </main>
+  <dc-import name="SiteFooter" hint-size="100%,90px"></dc-import>
+
+  <sc-if value="{{ postOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closePost }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.56);z-index:200;display:flex;align-items:flex-end;justify-content:center;animation:tds-scrim .2s ease;">
+      <div onClick="{{ stopProp }}" style="background:#fff;border-radius:24px 24px 0 0;max-width:720px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 -2px 12px rgba(25,31,40,.06);animation:tds-sheet-up .32s cubic-bezier(0.22,0.61,0.36,1);">
+        <div style="position:sticky;top:0;background:#fff;padding:12px 0 6px;display:flex;justify-content:center;z-index:2;">
+          <div style="width:44px;height:5px;border-radius:999px;background:#E5E8EB;"></div>
+        </div>
+        <div style="padding:8px 30px 6px;">
+          <div style="font-size:14px;color:#8B95A1;">{{ openDate }}</div>
+          <h3 class="section-h" style="font-size:24px;margin-top:8px;line-height:1.35;text-wrap:pretty;">{{ openTitle }}</h3>
+        </div>
+        <sc-if value="{{ singleImg }}" hint-placeholder-val="{{ true }}">
+          <img src="{{ openImgFull }}" alt="{{ openTitle }}" onClick="{{ openLightbox }}" data-src="{{ openImgFull }}" style="width:100%;max-height:none;object-fit:contain;display:block;background:#F2F4F6;margin-top:14px;cursor:zoom-in;">
+        </sc-if>
+        <sc-if value="{{ hasGallery }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:14px 30px 4px;">
+            <sc-for list="{{ openGallery }}" as="g" hint-placeholder-count="6">
+              <img src="{{ g }}" alt="{{ openTitle }}" onClick="{{ openLightbox }}" data-src="{{ g }}" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;background:#F2F4F6;display:block;cursor:zoom-in;">
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="padding:18px 30px 34px;">
+          <sc-if value="{{ hasBody }}" hint-placeholder-val="{{ true }}">
+            <p style="font-size:15px;line-height:1.75;color:#4E5968;white-space:pre-line;text-wrap:pretty;">{{ openBody }}</p>
+          </sc-if>
+          <div onClick="{{ closePost }}" style="margin-top:26px;height:56px;display:flex;align-items:center;justify-content:center;background:#1B3A6B;color:#fff;font-weight:700;font-size:17px;border-radius:999px;cursor:pointer;">닫기</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ lightboxImg }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:210;display:flex;align-items:center;justify-content:center;padding:32px;cursor:zoom-out;">
+      <img src="{{ lightboxImg }}" alt="" style="max-width:100%;max-height:100%;object-fit:contain;display:block;">
+      <span onClick="{{ closeLightbox }}" style="position:absolute;top:20px;right:28px;color:#fff;font-size:34px;line-height:1;cursor:pointer;">×</span>
+      <sc-if value="{{ lightboxHasNav }}" hint-placeholder-val="{{ true }}">
+        <span onClick="{{ prevLightbox }}" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:26px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;">‹</span>
+        <span onClick="{{ nextLightbox }}" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:26px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;">›</span>
+        <span style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.82);font-size:14px;letter-spacing:.02em;">{{ lightboxCounter }}</span>
+      </sc-if>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { broadCat: 'All Posts', openPost: null, lightboxImg: null };
+  renderVals() {
+    const M = 'https://static.wixstatic.com/media/';
+    const newsList = [
+      { title: '2026 날씨 빅데이터 콘테스트 축산분야 최우수상 수상', date: '2026년 8월 5일', category: 'Photo', img: 'uploads/소확행 우승.jpg' },
+      { title: '위지은 박사, 국립기상과학원 기상연구사 최종 합격', date: '2026년 6월 9일', category: 'Notice', img: 'uploads/스크린샷 2026-08-22 133937.png' },
+      { title: '2026 EGU 학회 참석 및 포스터·구두 발표', date: '2026년 5월 12일', category: 'Photo', img: M + 'eae953_2547a740b65c436cb8d57e02c852de47~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/eae953_2547a740b65c436cb8d57e02c852de47~mv2.webp' },
+      { title: 'Dr. Roujean 초청 세미나 개최: 전북대·나주·부경대 연구교류', date: '2026년 4월 14일', category: 'Photo', img: M + 'eae953_01f0861c74204dd98824b04cce2195d6~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_95,enc_avif,quality_auto/eae953_01f0861c74204dd98824b04cce2195d6~mv2.webp' },
+      { title: '벚꽃보다 따스한 우리 연구실의 봄 🌸🛰️', date: '2026년 4월 3일', category: 'Photo', img: M + 'f6a492_c09118612c944734bfdbd2ed868c94be~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_c09118612c944734bfdbd2ed868c94be~mv2.webp' },
+      { title: '인공지능 환경원격탐사 연구실 학부연구생 모집 (3월 31일까지)', date: '2026년 3월 5일', category: 'Notice', img: M + 'f6a492_f65f9f7305a14d249e22f8bf17686d30~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_95,enc_avif,quality_auto/f6a492_f65f9f7305a14d249e22f8bf17686d30~mv2.webp' },
+      { title: '2025 스페이스 해커톤 연계 해외기업탐방', date: '2026년 2월 8일', category: 'Photo', img: M + 'f6a492_0d4d5a58cb0d4261bf6dcfeb7f9067d2~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_95,enc_avif,quality_auto/f6a492_0d4d5a58cb0d4261bf6dcfeb7f9067d2~mv2.webp' },
+      { title: '추위보다 강했던 우리 연구실의 겨울 MT⛷️🛰️', date: '2026년 1월 13일', category: 'Photo', img: M + 'f6a492_0380bd7a69634ac3967f978a504caab4~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_0380bd7a69634ac3967f978a504caab4~mv2.jpg' },
+      { title: '2025 AGU 학회 참석 및 포스터 발표', date: '2025년 12월 21일', category: 'Photo', img: M + 'eae953_a44d6b2359cf4d7b935178eea5dc7c9b~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_95,enc_avif,quality_auto/eae953_a44d6b2359cf4d7b935178eea5dc7c9b~mv2.webp' },
+      { title: '2025 스페이스 해커톤 우수상 수상', date: '2025년 11월 27일', category: 'Photo', img: M + '96bbb9_626acac3fd7945d5863cfebad414d4a3~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/96bbb9_626acac3fd7945d5863cfebad414d4a3~mv2.webp' },
+      { title: '2025 GeoAI 추계학술대회 학생우수발표상 수상', date: '2025년 11월 7일', category: 'Photo', img: M + 'f6a492_8507cfc1582b411fb8a55327435ff484~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_8507cfc1582b411fb8a55327435ff484~mv2.webp' },
+      { title: '2025 GeoAI 학회 참석 및 구두 발표', date: '2025년 11월 7일', category: 'Photo', img: M + 'f6a492_9f79f91ec18643758c45bf83754da904~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_9f79f91ec18643758c45bf83754da904~mv2.webp' },
+      { title: '2025 KSRS 학회 참석 및 포스터/구두 발표', date: '2025년 10월 24일', category: 'Photo', img: M + 'f6a492_e9db74dcf1984b98971b408a9c86ad4d~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_e9db74dcf1984b98971b408a9c86ad4d~mv2.webp' },
+      { title: '인공지능 환경원격탐사 연구실 학부연구생 모집 (9월 30일까지)', date: '2025년 9월 1일', category: 'Notice', img: M + 'f6a492_8bd7ab5557b648d1a8b86838c3473043~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_95,enc_avif,quality_auto/f6a492_8bd7ab5557b648d1a8b86838c3473043~mv2.webp' },
+      { title: '2025 새만금 공공데이터 활용 경진대회 우수상 수상', date: '2025년 8월 29일', category: 'Photo', img: M + 'f6a492_522cc912dc0e40478203207ad4a04f5e~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_522cc912dc0e40478203207ad4a04f5e~mv2.webp' },
+      { title: '2025 빅데이터 혁신융합대학사업', date: '2025년 7월 14일', category: 'Photo', img: M + 'f6a492_c944e90177544b32aa68cbf2bc72a779~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_95,enc_avif,quality_auto/f6a492_c944e90177544b32aa68cbf2bc72a779~mv2.webp' },
+      { title: 'AISEELab H200 등장이올시다~!📡', date: '2025년 7월 7일', category: 'Notice', img: M + 'f6a492_21ea0dfea1934b8ca2c6fc0df0307e50~mv2.png/v1/fill/w_454,h_341,fp_0.50_0.50,q_95,enc_avif,quality_auto/f6a492_21ea0dfea1934b8ca2c6fc0df0307e50~mv2.webp' },
+      { title: '2025 ISRS 학회 참석 및 포스터 발표', date: '2025년 5월 16일', category: 'Photo', img: M + 'f6a492_17bedba7021d416d8fbcb39c623d1a0b~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_17bedba7021d416d8fbcb39c623d1a0b~mv2.webp' },
+      { title: '벚꽃보다 선명한 우리 연구실의 봄 🌸🛰️', date: '2025년 4월 11일', category: 'Photo', img: M + 'f6a492_4cb470c4014e43c19a43c6dc6cd07126~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_4cb470c4014e43c19a43c6dc6cd07126~mv2.webp' },
+      { title: '인공지능 원격탐사 연구실 학부연구생 모집 (3월 31일까지)', date: '2025년 3월 21일', category: 'Notice', img: M + 'f6a492_949f91ef485d4ce9a49bcb4538cb92f7~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_949f91ef485d4ce9a49bcb4538cb92f7~mv2.webp' },
+      { title: '새로운 학부연구생 환영회', date: '2025년 1월 9일', category: 'Photo', img: M + 'f6a492_d66b36cbd1554f6fa39a0c59ec5b4e77~mv2.jpg/v1/fill/w_454,h_341,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_d66b36cbd1554f6fa39a0c59ec5b4e77~mv2.webp' }
+    ];
+    const bodies = {
+      '2026 날씨 빅데이터 콘테스트 축산분야 최우수상 수상': '우리 연구실 \'소확행데이터\' 팀이 기상청·축산물품질평가원·한국전력공사가 주최한 2026 날씨 빅데이터 콘테스트에서 축산분야 최우수상(기후에너지환경부장관상)을 수상했습니다. 8월 5일 서울 페럼타워에서 열린 본선 심사 및 시상식에서 수상작이 발표되었습니다.\n\n수상작은 \'앙상블 AI기반 한우 도체등급 예측과 기상데이터의 생산관리 활용\'으로, 개체정보·혈통·농가정보와 기상·기후 데이터를 융합해 도축 전 도체등급을 예측하고 생산관리 의사결정을 제시해 호평받았습니다. 이번 대회에는 총 125개 팀이 참가했으며, 축산 분야에만 45개 팀이 참여해 본선 진출 10개 팀 중에서 최우수상으로 선정되었습니다.\n\n또한 전봇대 화재를 주제로 출전한 \'명예소방관\' 팀도 입선 수상이 확인되었습니다.\n\n준비 과정부터 본선 발표까지 고생한 우리 연구원생들 모두 정말 수고 많았습니다. 진심으로 축하합니다! 🏆\n\n#aiseelab #위성원격탐사연구실의_미래는_밝다 #교수님_항상_감사합니다',
+      '위지은 박사, 국립기상과학원 기상연구사 최종 합격': '우리 연구실에서 박사후연구원으로 근무했던 위지은 박사님이 2026년 국립기상과학원 제2회 공무원(기상연구사) 경력경쟁채용시험 인공지능기상연구 분야에 최종 합격했습니다.\n\n연구실에서 함께 쌓아온 인공지능·원격탐사 연구 역량을 바탕으로 앞으로 국립기상과학원에서 펼쳐갈 활약을 응원합니다. 연구실 구성원 모두가 진심으로 축하드립니다! 🎉',
+      '2025 빅데이터 혁신융합대학사업': '2025.07.09~2025.07.11 2025년 빅데이터 혁신융합대학사업 - 한국항공우주연구원 전문인력 교육 프로그램 운영\n\n주제: 위성정보와 딥러닝을 이용한 멀티모달 및 초해상화 실습\n\n2025.07.09 (수)\n다들 집중모드 돌입! #열심열심 #AI는_대단해 👍😁\n#행복행복 웃음 가득한 회식 ! 냠냠 ! 🤩🍗🍻\n\n2025.07.10 (목)\n다음 날도 집중모드 돌입.. 가방끈이 길어지는 느낌?!! #착각아님 ^ㅁ^ ✌️🤗👨‍🏫\n이렇게 지식을 쌓은 날은 역시 ‘회’ 로 마무리! 행복 듬뿍+지식 듬뿍 연구생들 ~ ☺️☺️\n\n2025.07.11 (금)\n카메라 의식 안하고 열심히 공부하는 학생들.. 대단하다.. 👍👍👍\n이렇게 열심히 공부한 학생들에게 드리는 파파존스 PIZZA! #맛있다 #뷔페여뭐여~ 🍕🍕🍕🍝🍗\n\n7/9~7/11 동안 강연해주신 오한 박사님 외 연구원분들 감사합니다.',
+      '2025 ISRS 학회 참석 및 포스터 발표': '2025.05.14~2025.05.16 ISRS 학회 참석 (인천 송도 컨벤시아)\n\n#학회온김에화보찍기 #이과생의포즈\n\n· 포스터 발표 (5.14): RESEARCH AND TECHNOLOGY OF ALGORITHMS FOR THE CALCULATION OF SURFACE REFLECTANCE THROUGH MULTI-SATELLITE DATA FUSION\n· 포스터 발표 (5.15): CLOUD DETECTION IMPROVEMENT AND EVALUATION USING KOMPSAT TOP OF ATMOSPHERE REFLECTANCE AND DEEPLABV3+ MODEL\n· 포스터 발표 (5.15): EVALUATION OF CHLOROPHYLL CONENTRATION IN SAMANGEUM WATERSHED USING GEOSTATIONARY OCEAN COLOR IMAGING SATELLITE AND BACK PROPAGATION NEURAL NETWORK(BPNN) MODEL\n\n#학회후퇴근길 #OralSession끝났으니노을세션시작\n#누가맥주에위성담갔냐 #맥주에데이터쌓이는중 #AI도못알아들을수다',
+      '벚꽃보다 선명한 우리 연구실의 봄 🌸🛰️': '우리 연구실 감성, 벚꽃처럼 예쁘게 피었다는 거 인증 완료🌸🛰️✨\n\n#위성보다우리가선명함 #벚꽃아래위성데이터받기 #위성찍다우릴찍었네 #벚꽃다운로드중',
+      '새로운 학부연구생 환영회': '인공지능 원격탐사 연구실 새 가족을 소개합니다!\n\n우리 연구실에 새로운 학부 연구생 두 분이 함께하게 되었습니다.\n\n지구환경과학과 22학번 송시은\n생물산업기계공학과 22학번 김윤지\n\n앞으로 다양한 연구 프로젝트에서 함께 성장하며 멋진 성과를 만들어가길 기대합니다. 환영회 겸 회식에서 다 같이 즐거운 시간을 보냈는데, 두 학생 모두 연구실 분위기에 잘 적응했길 바라며 연구실의 새로운 활력소가 되어줄 두 분을 진심으로 환영합니다!',
+      '2025 AGU 학회 참석 및 포스터 발표': '2025.12.13~2025.12.21 2025 AGU 학회 참석 (미국 뉴올리언스)\n\n· 포스터 발표: Multi-Satellite-Based Image Fusion Methods Using Deep Learning\n· 포스터 발표: Fog Detection with Deep Learning and Pseudo Labeling on GEO-KOMPSAT-2A\n· 포스터 발표: Assessing Chlorophyll Concentration in Using Geostatonary Ocean Color Imager Satellite and Deep Learning approach: Case study of Reciamed Areas of Saemangeum Watershed\n· 포스터 발표: Deep Learning-Based Postprocessing of East Asian Summer Precipitation Forecasts for S2S Prediction Using Multiple Architectures, Loss Functions, and Ensemble Means',
+      '2025 스페이스 해커톤 우수상 수상': '전북대학교 인공지능 환경원격탐사 연구실 석사과정생 전원이 2025 스페이스 해커톤에 참가해 ‘위성정보 빅데이터 활용 아이디어 공모 부문’에서 우수상을 수상했다.\n\n수상작은 KOMPSAT-3 위성 영상을 기반으로 PAN Sharpening 기법과 인공지능, 대규모 언어모델(LLM)을 결합한 건물 피해 탐지 및 시각적 추론 프레임워크로, 재난 상황에서의 신속한 피해 분석과 의사결정 지원 가능성을 제시했다.\n\n특히 대규모 위성영상 분석 결과를 언어모델과 연계해 피해 유형 분류와 요약 정보를 자동으로 생성하도록 설계함으로써, 재난 대응 기술의 실용성과 확장성을 높였다는 평가를 받았다.\n\n지도교수인 염종민 교수는 “고해상도 위성영상과 인공지능, 언어모델을 융합한 이번 연구는 위성정보 활용의 새로운 방향성을 보여준다”며, “학생들이 연구 과정에서 축적한 기술을 실제 문제 해결 중심의 아이디어로 발전시킨 점이 의미 있다”고 밝혔다.\n\n또한 수상팀은 “연구실에서 진행해 온 인공지능 기반 원격탐사 연구를 바탕으로 재난 대응에 실질적으로 기여할 수 있는 기술을 제안하고자 했다”며 “앞으로 모델 고도화와 다양한 위성 자료 확장을 통해 현장 적용 가능성을 높여 나가겠다”고 소감을 밝혔다.\n\n#2025스페이스해커톤 #미국진출 #위성의_미래는_밝다 📡🌟',
+      '2025 GeoAI 추계학술대회 학생우수발표상 수상': '전북대학교 인공지능 환경원격탐사 연구실 한도희 석사과정생(지도교수 염종민)이 2025 GeoAI 추계학술대회에서 우수 학생연구 발표자로 선정되어 시상되었습니다!\n\n연구 주제: “딥러닝 및 물리모델을 활용한 다중위성 융합 기반 시·공간 초해상도 지표반사도 산출 기법”\n\n연구실 모든 구성원이 함께 축하드립니다 👏',
+      '2025 GeoAI 학회 참석 및 구두 발표': '2025.11.05~2025.11.07 2025 GeoAI 추계학술대회 참석 (제주 파르나스 호텔)\n\n· 구두 발표: 딥러닝 및 물리모델을 활용한 다중위성 융합 기반 시·공간 초해상도 지표반사도 산출 기법\n· 구두 발표: GK2A와 지상관측 자료의 융합을 통한 한반도 안개 탐지 레이블 확장 연구\n· 구두 발표: 인공지능 기반 정지궤도 해색위성 자료를 통한 새만금 유역의 클로로필-a 및 TP 산출 연구',
+      '2025 KSRS 학회 참석 및 포스터/구두 발표': '2025.10.23~2025.10.24 2025 대한원격탐사 추계학술대회(KSRS) 참석 (여수 베네치아 호텔)\n\n· 구두 발표 (10.23): 다중위성 기반 딥러닝 영상 융합반사도 산출 기법 연구\n· 구두 발표 (10.23): 정지궤도 위성자료와 인공지능을 활용한 새만금 유역 클로로필-a 산출 연구\n· 포스터 발표 (10.23): 공간정보 학술자료 기반 Qwen LLM 파인튜닝을 통한 챗봇 성능 개선 연구 — 위성기반 안개 탐지 사례\n· 구두 발표 (10.24): GK2A와 영상처리 기반 라벨 확장을 활용한 안개 탐지 기법 연구\n\n우수논문 심사상 — 전북대학교 염종민 교수님 축하드립니다! 🥳\n우리 연구실 교수님이 이번 추계학술대회 기술위원장 🤗✌️',
+      '2025 새만금 공공데이터 활용 경진대회 우수상 수상': '전북대학교 인공지능 환경원격탐사 연구실 김수환, 한도희, 이예진 석사과정생(지도교수 염종민)이 ‘2025 새만금 공공데이터 활용 경진대회’에서 우수상을 수상했다.\n\n새만금개발청이 주최하는 「2025년 새만금 공공데이터 활용 경진대회」에서 전북대학교 조류감시단 팀이 데이터 분석 및 생산 부문 우수상을 수상했다.\n\n조류감시단은 ‘새만금 유역 수질 데이터 및 인공위성 자료 기반 AI를 활용한 새만금호 조류의 시공간적 변동 양상 분석’이라는 주제로 참가하여, 새만금호 유역 수질측정망 데이터·GOCI 위성영상·LDAPS 기상모델·배수갑문 해수유통량 자료를 융합 분석하였다. 이를 통해 AI 기반 클로로필 농도 예측 모델을 구축하고, 녹조 발생 가능성을 시공간적으로 정밀하게 추적할 수 있는 알고리즘을 개발하여 높은 평가를 받았다.\n\n특히 기존 수질 측정망의 한계를 극복하고 실시간 모니터링 체계로 확장할 수 있는 가능성을 제시했다는 점에서 기술적·실용적 가치가 높게 인정되었다. 이번 성과는 단순한 연구 성과를 넘어, 새만금 개발 정책과 환경 관리 정책에도 실질적으로 기여할 수 있는 성과라는 점에서 의미가 크다.\n\n수상팀은 “연구 과정에서 지도해주신 교수님과 협력해준 팀원들에게 깊이 감사드리며, 이번 연구가 원격탐사와 환경 분야 발전에 기여할 수 있기를 바란다”고 소감을 전했다.',
+      '2026 EGU 학회 참석 및 포스터·구두 발표': '2026.05.03~2026.05.11 EGU 학회 참석 (오스트리아 빈)\n\n· 포스터 발표: Development of a Surface Reflectance Consistency Algorithm between KOMPSAT-3A and Sentinel-2A/Landsat Satellites\n· 포스터 발표: Environment-Specific Fog Detection over the Korean Peninsula Using GEO-KOMPSAT-2A and DeepLabv3+\n· 포스터 발표: Satellite-Based Estimation of Chlorophyll-a and Total Phosphorus in Saemangeum’s Hydrodynamically Complex Waters Using Machine and Deep Learning\n· 구두 발표: Solar Irradiation Nowcasting with Flow-Guided Cloud Motion',
+      'Dr. Roujean 초청 세미나 개최: 전북대·나주·부경대 연구교류': '<2026.04.07 전북대학교 세미나>\n<2026.04.10 나주 세미나>\n<2026.04.14 부경대학교 세미나>',
+      '벚꽃보다 따스한 우리 연구실의 봄 🌸🛰️': '#연구실단체샷 🫶💪  #대학원생 ✌️  #학부연구생 ✌️  #벚꽃구경 🌸',
+      '2025 스페이스 해커톤 연계 해외기업탐방': '2026.01.31(토) ~ 2026.02.08(일)\n2025 스페이스 해커톤 연계 해외기업탐방 (미국 NASA 및 고다드 우주비행센터 등)',
+      'AISEELab H200 등장이올시다~!📡': 'H200 GPU 설치가 완료되었습니다~ ! 우리 AISEELab 연구생들이 한 발짝 더 성장하길 바랍니다.\n\n#화려한_내부 😯\n#깨끗하고 #깔끔한_내부 😄\n열심히 조립 중~ #다재다능한 aiseelab 연구생들~🙌\n#GPU #작업완료 😁',
+      '추위보다 강했던 우리 연구실의 겨울 MT⛷️🛰️': '#스키실력은제각각 #단합력은만장일치 #추위보다강한연구실\n#운동뒤엔단백질 #고기는굽고대화는익어가고 #스키보다신남 #뒷정리도완벽\n\n우리 연구실 겨울, 추위보다 강하다는 거 인증 완료❄️🛰️⛷️'
+    };
+    const g = (id) => M + 'f6a492_' + id + '~mv2.jpg/v1/fill/w_500,h_500,fp_0.50_0.50,q_90,enc_avif,quality_auto/f6a492_' + id + '~mv2.jpg';
+    const gj = (id) => M + id + '~mv2.jpg/v1/fill/w_500,h_500,fp_0.50_0.50,q_90,enc_avif,quality_auto/' + id + '~mv2.jpg';
+    const gp = (id) => M + id + '~mv2.png/v1/fill/w_500,h_500,fp_0.50_0.50,q_90,enc_avif,quality_auto/' + id + '~mv2.png';
+    const galleries = {
+      '2026 날씨 빅데이터 콘테스트 축산분야 최우수상 수상': ['uploads/소확행 우승.jpg','uploads/소확행 우승 2.png','uploads/소확행 우승 2.jpg'],
+      '2025 빅데이터 혁신융합대학사업': [
+        'f6a492_c944e90177544b32aa68cbf2bc72a779','f6a492_a00a3ab02fba4826aafc2c131645c0b6','f6a492_28c41ce2ab9c4edebc1f0def3390dbda',
+        'f6a492_2a7965e692fb4c36a1ba219345a73346','f6a492_9b3893109ef74b0984187b1cdf67c2d9','f6a492_b6ab48006d874849a39fc9f97b537e99'
+      ].map(gp).concat(['f6a492_9d86067881de4111b209b079389bcd67'].map(gj)),
+      '2025 ISRS 학회 참석 및 포스터 발표': [
+        'f6a492_17bedba7021d416d8fbcb39c623d1a0b','f6a492_935a04149ba4480fa1e517a062e8a956','f6a492_2fcec213e4a14efd931b1c9e75dcb754',
+        'f6a492_c0d4e6dc147c442fb5a6a291cb2f3e79','f6a492_4adbab006b52474d95b8aef4b0724c2b','f6a492_8afe0a3393264cc5a06939001ddf22ce'
+      ].map(gj),
+      '벚꽃보다 선명한 우리 연구실의 봄 🌸🛰️': [
+        'f6a492_4cb470c4014e43c19a43c6dc6cd07126','f6a492_52d5be016d3e4a7d9ae889a4e431dba1','f6a492_ed0545e9c72f49d2af5b0bddf73790e2',
+        'f6a492_6f63d8d42f9d4f81b9096f155593206c'
+      ].map(gj),
+      '2025 AGU 학회 참석 및 포스터 발표': ['eae953_a44d6b2359cf4d7b935178eea5dc7c9b','eae953_a72765179cd54f2a9ef1bfb1d4869c2c','eae953_d6701e22f9814ffeab745455d1e45a72'].map(gp).concat([
+        'eae953_d2215dae126a42aeac76e12084426058','f6a492_cc1210265df34cfe854a601fcd5e2359','f6a492_a31be7505d234e55ade16fb302049aea',
+        'f6a492_68411f3e05974871aae6d99c4dad2f08','f6a492_3ae5538c4e5f43b898a5f126e574a68f','f6a492_88198120a3a241f1b34b2012fce2599b',
+        'f6a492_ff880fc77c9a4e1abf14f4220f34143e','f6a492_4f60cfd8bbd7403fa6f9b2fe2b9c4769','eae953_b02efe1342ea4f459115de92223acc77',
+        'eae953_31cb11668743404a9368f5edc96ee2d8','eae953_423f28e78af449e58b8593d06f469912','eae953_1847042fda494a1e8529ce6c91e90c8d',
+        'eae953_e3e2d2456d684e58be4106130a5d0b05','eae953_571806ab6ebd4a92a6609f636b0652f9'
+      ].map(gj)),
+      '2025 스페이스 해커톤 우수상 수상': ['96bbb9_62984bc8fa764529941a37eb68a6c627'].map(gp).concat([
+        '96bbb9_626acac3fd7945d5863cfebad414d4a3','f6a492_1672fcebce864d9d8eb6caeb9891e29b','f6a492_eb6ac7f607fb4624ad2b2fb11912353a',
+        'f6a492_9f5331a3924147b3b19bbafbfc46f7a9','f6a492_9c3bfad2416045bd8c28e6a2ba7d319d','96bbb9_b1b97314ee86485a94c1fc57779ac933'
+      ].map(gj)),
+      '2025 GeoAI 추계학술대회 학생우수발표상 수상': [
+        'f6a492_8507cfc1582b411fb8a55327435ff484','f6a492_8ec4febfb06048c295d1314d07c5687c','f6a492_162b34ed3fb84e19b042bf23f1e6367d',
+        'f6a492_5f71e5569ed64c93a5e6551b4a9afedb','f6a492_d7e4fafcba3c48e299732c9bf5c25d26'
+      ].map(gj),
+      '2025 GeoAI 학회 참석 및 구두 발표': [
+        'f6a492_9f79f91ec18643758c45bf83754da904','f6a492_0c35bc2a00024ed8a78ee235421b21ad','f6a492_5f1b9a2dd1a24743b3223bee13eb8def',
+        'f6a492_085f75b6e048455980e8112399fe62d5','f6a492_bf23b66620794a0e8bbb7dad89096896','f6a492_686438a4b3c0462bbf2150f473ca5587',
+        'f6a492_f63e4da76b6b4d9db2e1b0808997aa01','f6a492_c0828c597de246deb36b757cc246f561','f6a492_ab2cc577bc44405cb2bb5e557f2c2598',
+        'f6a492_04b9d66112db4d15a9a27132fac425d6','f6a492_9b58e57268d145caa95d2753df4c9ed7','f6a492_72db97d12a8b4555b0adc6ca5ee3c2db',
+        'f6a492_319576466ab84a5c8a5f6f0bb8b43e63','f6a492_c9b2e12e3be243bcb665df0a42b1f0ee','f6a492_42ceb18c70e646db9261e75ef1e06588',
+        'f6a492_1579a4da157e4e08ab3f6af3934c0c29','f6a492_6a61497f2d8e48e9ba6a079316106e85','f6a492_b3e874e16db24fb2a1bdf9229e376eee',
+        'f6a492_421fd7e74c7f4c0bb3061b09f54b7ed2','f6a492_9fd68c10231d445891cad3c4e98b31c4','f6a492_dbbed75bf6114239bab221e29a02ea63',
+        'f6a492_55e97f3b325a4e38adbe121590a38c99','f6a492_9e89927d7b734ac58633b9053237db3e','f6a492_94a6bd381b02466cbc0b2f567317c95d',
+        'f6a492_b1d206be195c42c7b7e2f3a9d3d40295','f6a492_413d102dcbbe4d319dba27e4d1357611','f6a492_c34bf6f61dc347dab704e0ac699f4c49',
+        'f6a492_0906bcca862d459d9535b9d3fe03b64d','f6a492_3a08d5daced340b6a7ad08a0d9cebf8b','f6a492_83446ae92416446eb6875a0d7d04212e',
+        'f6a492_9e6e2a6f86cb412988ac97a3f2a76933','f6a492_f9daf884498b437d9865e575c38a664a','f6a492_57b44fb6fa7f4a15bdcbe18cc13fe210'
+      ].map(gj),
+      '2025 KSRS 학회 참석 및 포스터/구두 발표': [
+        'f6a492_e9db74dcf1984b98971b408a9c86ad4d','f6a492_ab89e9bef4804c52b53d467901418328','f6a492_7fd09bf67d2044c8b7d9d64209d54e89',
+        'f6a492_067bb32f28ff4622814334086c2195c1','f6a492_cb55ccb13bc34aff8946cd681a033687','f6a492_d06e5fef878c45b0bd31654834e2cc9f',
+        'f6a492_d2e585ecbeb743a4a6dd04936501091d'
+      ].map(gj),
+      '2026 EGU 학회 참석 및 포스터·구두 발표': [
+        'eae953_2547a740b65c436cb8d57e02c852de47','eae953_ebeecb67bdf446b8abf6e2d7287c1805','eae953_8dcda0f4d87a413db04ffdf9fb03055c',
+        'eae953_e27040ca6d1b4da6b92bc8514aca9cc4','eae953_24f178c93e4f4f8e8ebd05b83b12d66f','eae953_6737cdb88ffa462c9ed0ad53f7f6cacd',
+        'eae953_9d71d402cf974e08884682f56e919311','eae953_124d9a0602504cf48c6cb0a57ec67a63','eae953_cf799e906015437883a7a5a37de4115a',
+        'eae953_2b7c440c8884412e9bc8b8cfc9246426','eae953_83e3ae2cf7d64141ae835005f6e7ab31','eae953_8835101714174dc095f3ae1e78344a9b',
+        'eae953_b63576306e2f4f7a8a8175d47887925f','eae953_b9be9f4672284ef2a9b86b14d2e997e3','eae953_59f14c0564c848e29b69cf446ad8e73b',
+        'eae953_2c32dbc511174813bc2f136f6d5e0df2','eae953_16021c643f824b0f8fd52653e6394c16','eae953_3a2eeee209eb441bbb29cf7817cf453c'
+      ].map(gj),
+      'Dr. Roujean 초청 세미나 개최: 전북대·나주·부경대 연구교류': [
+        'eae953_929be50c11bf44019299b5efa91155f0','eae953_01f0861c74204dd98824b04cce2195d6','eae953_820af25acb2f4799be9d01df061d41eb',
+        'eae953_2116e53123084b29ab249200eb9a2aef','eae953_8f0aaad596e84af487462574bc35fa2f','eae953_3ef10c749efe44a69159c1fbd32f841d',
+        'eae953_bff8d91ab30848ac91cb6f818ba3546c','eae953_651903cd0486434f8501d458784d9d81','eae953_5d6d432e5f6641aa80d70a515afabac6',
+        'eae953_1c763124a3c142319daf746b737981cc','eae953_edc774e838fb4c118211fb1d04cfc5fd','eae953_444b85171fcc4dccb30932df0635422e',
+        'eae953_70d6f719a0bc48139a284ee47e72d8d9','eae953_9b7a16749b764c79baa49af8b984bf1c'
+      ].map(gp),
+      '벚꽃보다 따스한 우리 연구실의 봄 🌸🛰️': [
+        'f6a492_851d1238f233469d9698cfb35486f5bf','f6a492_601813bb7b0745c2ac14924a16ac1e4f','f6a492_aaa83d1452914967844e225f0200ac1c',
+        'f6a492_0028a65f4a1341ae943add8ef4ad8bcd','f6a492_4b5b8f0d815b4211a8d89dfa3dded7c4','f6a492_a5522e9cd5b64da79bf87eef147fce66',
+        'f6a492_d5a79bd38682410ea99e19fa4809613b','f6a492_0c82845924ed4a1d985d484e92e32258','f6a492_961473f747324b2bb04260bf5073f3cd',
+        'f6a492_cedad303e12c438f83d7dffe212569b8','f6a492_7a8c470ee43246f590a6b9331c9b9658'
+      ].map(gj),
+      '2025 스페이스 해커톤 연계 해외기업탐방': [
+        'f6a492_70b26b6bffd14ef3aad7e68b2c4a36e3','f6a492_671e72d413804537a55d3d206d366452','f6a492_92d281c8e50349b599dddbaed590e195',
+        'f6a492_a8c19237d51a49368ffa87719a421bad','f6a492_b05a785bf41d437da6bce0bebb361786','f6a492_894584bc7f98423385a7f8731ee5ced6',
+        'f6a492_f55b7522bfd34534be0024a2f3250739','f6a492_4e4a0b738ef2476bbd44458396c9e6f9','f6a492_e0525cbd10854dab8fe2e51c7f8033bc',
+        'f6a492_4aa7a1ab6441496784c031d7d54f3336'
+      ].map(gj),
+      'AISEELab H200 등장이올시다~!📡': [
+        'f6a492_1934cba2de2d45e99a47cb968ae8f260','f6a492_0022b69dc8704d15ac12e3c44882b258','f6a492_3d8326c60ed74784a6388954e6dc5d1d'
+      ].map(gj).concat(['f6a492_21ea0dfea1934b8ca2c6fc0df0307e50'].map(gp)),
+      '추위보다 강했던 우리 연구실의 겨울 MT⛷️🛰️': [
+        '0380bd7a69634ac3967f978a504caab4','00006d23829648ca96954d765ee720ca','0b3e842a47204737be32b961cf6a8b7c',
+        'a8faa0bae8ac4daf9c5e56546a0f8b56','0500cd70934e4702817285903f444173','01d813b996b0438a8dc383f33fdff182',
+        'dfc360b184e349f39831fa31f4ce43fa','1f708d35e24346ddbd675bcceccf7c12','633f5282b5fe4cf5b6f2a57ddd43c60d',
+        '84be2b7d55c74be48eadfecfff0a1b4c','4907bea928104f34a342cd91f37b292b','b53a79cb9b444c879248983c4dfce10b',
+        '898b8265453542d3b857cc0a9b8a1a93','807763cb17e1497ca182feaed265c630','e3b30f37bc5a44efa8a7990257658b8e',
+        '6320751a527343b885995d49965f252e','d3b3e716024140b38bde00a6358e1410','846e41de073e4297935ab21f23585ff8',
+        '2cc727594afe475aa7ad61ed7f0e6387','d48fcf0d7ddb4dd98f562d815f7bce2f','745a5bdcbef8442b98bb780e0a69c6ab',
+        '017c0cb0e3834182bfc0f5e31a2e8d78','49f5ecb311804d4d85f83b64743a2173','b434e4629c4742358cba5a4554390363'
+      ].map(g)
+    };
+    newsList.forEach((n, i) => { n.id = i; n.body = bodies[n.title] || ''; n.gallery = galleries[n.title] || []; });
+    const cat = this.state.broadCat || 'All Posts';
+    const tabStyle = (active) => 'padding:9px 22px;border-radius:10px;font-size:15px;cursor:pointer;user-select:none;' + (active ? 'font-weight:700;color:#191F28;background:#fff;box-shadow:0 1px 2px rgba(25,31,40,.08);' : 'font-weight:600;color:#8B95A1;');
+    const mkTab = (label) => ({ label, style: tabStyle(cat === label), onClick: () => this.setState({ broadCat: label }) });
+    const filtered = (cat === 'All Posts' ? newsList : newsList.filter(n => n.category === cat)).map((n) => ({
+      title: n.title, date: n.date, img: n.img, onOpen: () => this.setState({ openPost: n.id })
+    }));
+    const op = this.state.openPost;
+    const openData = (op != null && newsList[op]) ? newsList[op] : null;
+    const lightboxList = openData ? (openData.gallery && openData.gallery.length ? openData.gallery : [openData.img.replace(/\/fill\/w_\d+,h_\d+/, '/fit/w_1400,h_1900')]) : [];
+    return {
+      broadTabs: [ mkTab('All Posts'), mkTab('Notice'), mkTab('Photo') ],
+      filteredNews: filtered,
+      postOpen: !!openData,
+      openTitle: openData ? openData.title : '',
+      openImg: openData ? openData.img : '',
+      openImgFull: openData ? openData.img.replace(/\/fill\/w_\d+,h_\d+/, '/fit/w_1400,h_1900') : '',
+      openDate: openData ? openData.date : '',
+      openBody: openData ? openData.body : '',
+      hasBody: !!(openData && openData.body),
+      openGallery: openData ? openData.gallery : [],
+      hasGallery: !!(openData && openData.gallery && openData.gallery.length),
+      singleImg: !(openData && openData.gallery && openData.gallery.length),
+      lightboxImg: this.state.lightboxImg,
+      lightboxHasNav: !!(openData && lightboxList.length > 1 && this.state.lightboxImg),
+      lightboxCounter: (lightboxList.indexOf(this.state.lightboxImg) + 1) + ' / ' + lightboxList.length,
+      prevLightbox: (e) => { e.stopPropagation(); const i = lightboxList.indexOf(this.state.lightboxImg); if (i < 0) return; this.setState({ lightboxImg: lightboxList[(i - 1 + lightboxList.length) % lightboxList.length] }); },
+      nextLightbox: (e) => { e.stopPropagation(); const i = lightboxList.indexOf(this.state.lightboxImg); if (i < 0) return; this.setState({ lightboxImg: lightboxList[(i + 1) % lightboxList.length] }); },
+      stopProp: (e) => e.stopPropagation(),
+      closePost: () => this.setState({ openPost: null }),
+      openLightbox: (e) => { const s = e.currentTarget.getAttribute('data-src'); if (s) this.setState({ lightboxImg: s }); },
+      closeLightbox: () => this.setState({ lightboxImg: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

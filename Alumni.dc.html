@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Pretendard Variable',Pretendard,-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; letter-spacing:-0.01em; color:#191F28; background:#fff; }
+  a { color:inherit; text-decoration:none; }
+  a:hover { color:#1B3A6B; }
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column;">
+  <dc-import name="SiteHeader" active="alumni" hint-size="100%,82px"></dc-import>
+  <main style="flex:1;">
+    <dc-import name="TeamShowcase" title="Alumni" list="{{ alumni }}" hint-size="100%,360px"></dc-import>
+  </main>
+  <dc-import name="SiteFooter" hint-size="100%,90px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const M = 'https://static.wixstatic.com/media/';
+    return {
+      alumni: [
+        { role: 'Former Postdoctoral Researcher · 제주국립기상과학원 취업', name: 'Jieun Wie', major: 'Atmospheric science', email: 'jenn@jbnu.ac.kr', img: M + 'f6a492_89ea48040f874d25ae076decbf7ca0c4~mv2.jpg/v1/crop/x_9,y_0,w_533,h_709/fill/w_263,h_350,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/temp_1738568882530100_edited.jpg' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
