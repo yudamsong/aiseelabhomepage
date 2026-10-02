@@ -20,7 +20,7 @@
     ['Conferences, seminars, lab news and photos', '학회 참석, 세미나, 연구실 소식과 사진'],
     // professor
     ['Jong-min Yeom', '염종민'], ['POSITION', '직위'], ['TEL', '전화'], ['E-MAIL', '이메일'],
-    ['HOMEPAGE', '홈페이지'], ['OFFICE', '연구실'], ['Associate Prof.', '부교수'],
+    ['HOMEPAGE', '홈페이지'], ['OFFICE', '연구실'], ['Professor', '교수'],
     ['Building 15-4, Room 207', '15-4동 207호'],
     ['RESEARCH OVERVIEW', '연구 개요'], ['KEY RESEARCH AREAS', '대표 연구 분야'], ['CURRENT PROJECTS', '진행 중인 과제'],
     ['Combines satellite remote sensing and ground observations to retrieve land-surface information, and analyzes climate, agriculture and energy variables with AI and physical models.', '위성 원격탐사 자료와 지상관측자료를 결합하여 지표환경 정보를 산출하고, 인공지능과 물리모형을 이용해 기후·농업·에너지 변수를 분석합니다.'],
@@ -44,7 +44,7 @@
      '부경대학교 환경대기과학과 이학석사 (2005). 학위논문: Reflectance normalization via BRDF model for the Korean vegetation using MODIS 250m Data'],
     ['B.Sc. Dept. of Environmental Atmospheric Sciences, Pukyong National University, Busan, Korea (2003)', '부경대학교 환경대기과학과 이학사 (2003)'],
     ['2023.04∼Present', '2023.04∼현재'], ['2013.01∼Present', '2013.01∼현재'], ['2019.10∼Present', '2019.10∼현재'],
-    ['Associate Professor, Jeonbuk National University, Department of Earth and Environmental Sciences', '전북대학교 지구환경과학과 부교수'],
+    ['Professor, Jeonbuk National University, Department of Earth and Environmental Sciences', '전북대학교 지구환경과학과 교수'],
     ['Senior Researcher, Satellite Operation Center, Satellite Application Division, Korea Aerospace Research Institute (KARI)', '한국항공우주연구원(KARI) 위성활용부 위성운영센터 선임연구원'],
     ['Postdoctoral Researcher, Geographical Information Science Center of Excellence Department, South Dakota State University', '사우스다코타주립대학교 지리정보과학센터(GIScCE) 박사후연구원'],
     ['Postdoctoral Researcher, Brain Korea 21 Graduate School of Earth Environmental System, Pukyong National University', '부경대학교 BK21 지구환경시스템사업단 박사후연구원'],
