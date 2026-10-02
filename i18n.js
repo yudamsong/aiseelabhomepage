@@ -124,8 +124,8 @@
     var lead = orig.match(/^\s*/)[0], trail = orig.match(/\s*$/)[0];
     return lead + hit + trail;
   }
-  var lang = 'ko';
-  try { lang = localStorage.getItem('aisee-lang') || 'ko'; } catch (e) {}
+  var lang = 'en';
+  try { lang = localStorage.getItem('aisee-lang2') || 'en'; } catch (e) {}
   var ORIG = new WeakMap(), SET = new WeakMap();
   function doText(n) {
     var v = n.nodeValue;
@@ -169,7 +169,7 @@
   window.AISEE_I18N = {
     get: function () { return lang; },
     set: function (l) {
-      lang = l; try { localStorage.setItem('aisee-lang', l); } catch (e) {}
+      lang = l; try { localStorage.setItem('aisee-lang2', l); } catch (e) {}
       applyAll(); subs.forEach(function (f) { f(l); });
     },
     on: function (f) { subs.push(f); }

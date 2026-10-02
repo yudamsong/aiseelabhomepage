@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  .nav-toggle { display:none; }
+  @media (max-width:1024px){
+    .m-grid3 { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  }
+  @media (max-width:900px){
+    .site-header { padding:10px 16px !important; gap:10px !important; }
+    .site-header img { width:38px !important; height:38px !important; }
+    .site-header > a:first-child { gap:9px !important; min-width:0; }
+    .site-header > a:first-child span span:first-child { font-size:11px !important; }
+    .site-header > a:first-child span span:last-child { font-size:17px !important; }
+    .site-lang span { padding:4px 8px !important; font-size:11px !important; }
+    .nav-toggle { width:38px !important; }
+    .nav-toggle { display:flex !important; }
+    .site-lang { margin-left:auto; }
+    .site-nav { display:none !important; }
+    .site-nav.open { display:flex !important; flex-direction:column; align-items:stretch !important; gap:0 !important; width:100%; order:10; margin-left:0 !important; padding:4px 0 6px; border-top:1px solid #F2F4F6; }
+    .site-nav.open > a, .site-nav.open .member-menu > span { display:block !important; padding:13px 4px !important; font-size:16px !important; }
+    .site-nav.open .member-dd { display:block !important; position:static !important; padding:0 0 6px 12px !important; min-width:0 !important; }
+    .site-nav.open .member-dd > div { border:0 !important; box-shadow:none !important; padding:0 !important; }
+  }
+  @media (max-width:760px){
+    main section { padding-left:20px !important; padding-right:20px !important; }
+    main h2 { font-size:30px !important; }
+    .m-stack { grid-template-columns:1fr !important; gap:28px !important; }
+    .m-stack > div { border-right:0 !important; }
+    .m-hero-img { height:340px !important; }
+    .m-chip { position:static !important; margin:8px 12px 0 !important; transform:none !important; }
+    .m-stem { display:none !important; }
+    .m-team { padding:48px 20px !important; }
+    .m-team h2 { font-size:30px !important; margin-bottom:28px !important; }
+    .m-team-photos { width:100%; }
+    .m-team-photos > div { flex:1 1 0; min-width:0; }
+    .m-team-photos > div > div { width:100% !important; height:auto !important; aspect-ratio:3/4; }
+  }
+  @media (max-width:640px){
+    .m-grid3 { grid-template-columns:1fr !important; }
+    .m-gal { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  }
+  .member-menu:hover .member-dd { display:block !important; }
+  html[data-lang="en"] [data-ko-only] { display:none !important; }
+</style>
+<script src="i18n.js"></script>
+<script>
+(function(){
+  if (window.self === window.top) return;
+  function fit(){
+    var w = window.innerWidth, z = 1;
+    // only widen type inside a desktop-width embed; leave phones/tablets alone
+    if (w >= 760 && w < 1250) z = Math.min(1.35, 1250 / w);
+    document.documentElement.style.zoom = z;
+  }
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
+</helmet>
+<header class="site-header" style="position:sticky;top:0;z-index:50;background:#fff;display:flex;align-items:center;gap:28px;padding:14px 48px;border-bottom:1px solid #E5E8EB;flex-wrap:wrap;font-family:'Pretendard Variable',Pretendard,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;letter-spacing:-0.01em;">
+  <a href="index.html" style="display:flex;align-items:center;gap:14px;text-decoration:none;">
+    <img src="https://static.wixstatic.com/media/f6a492_d59013b0217344b6a9223f08eac9ef1e~mv2.png/v1/fill/w_116,h_116,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/f6a492_d59013b0217344b6a9223f08eac9ef1e~mv2.png" alt="전북대학교 인공지능 원격탐사 연구실" style="width:52px;height:52px;object-fit:contain;">
+    <span style="display:flex;flex-direction:column;line-height:1.2;">
+      <span style="font-size:14px;font-weight:600;color:#191F28;">Jeonbuk National University</span>
+      <span style="font-size:21px;font-weight:700;letter-spacing:.5px;color:#191F28;">AI SEE Lab</span>
+    </span>
+  </a>
+  <nav class="site-nav {{ navOpenCls }}" style="margin-left:auto;display:flex;align-items:center;gap:26px;">
+    <a href="index.html" style="{{ homeStyle }}">Home</a>
+    <div class="member-menu" style="position:relative;">
+      <span style="{{ memberStyle }}">Member <span style="font-size:10px;">▾</span></span>
+      <div class="member-dd" style="display:none;position:absolute;top:100%;left:0;padding-top:12px;min-width:184px;z-index:20;">
+        <div style="background:#fff;border:1px solid #E5E8EB;box-shadow:0 8px 24px rgba(0,0,0,.1);border-radius:14px;padding:8px 0;overflow:hidden;">
+          <a href="professor.html" style="{{ profStyle }}">Professor</a>
+          <a href="members.html" style="{{ membersStyle }}">Members</a>
+          <a href="undergraduates.html" style="{{ ugStyle }}">Undergraduates</a>
+          <a href="alumni.html" style="{{ alumniStyle }}">Alumni</a>
+        </div>
+      </div>
+    </div>
+    <a href="research.html" style="{{ researchStyle }}">Research</a>
+    <a href="publications.html" style="{{ pubStyle }}">Publications</a>
+    <a href="broad.html" style="{{ broadStyle }}">Broad</a>
+    <a href="contact.html" style="{{ contactStyle }}">Contact</a>
+  </nav>
+  <div class="site-lang" style="display:flex;align-items:center;gap:2px;padding:3px;border:1px solid #E5E8EB;border-radius:999px;">
+      <span onClick="{{ setEn }}" style="{{ enStyle }}">EN</span>
+      <span onClick="{{ setKo }}" style="{{ koStyle }}">KO</span>
+    </div>
+  <span class="nav-toggle" onClick="{{ toggleNav }}" style="align-items:center;justify-content:center;width:44px;height:44px;font-size:24px;line-height:1;color:#191F28;cursor:pointer;user-select:none;">{{ navIcon }}</span>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:82},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;professor&quot;,&quot;members&quot;,&quot;undergraduates&quot;,&quot;alumni&quot;,&quot;research&quot;,&quot;publications&quot;,&quot;broad&quot;,&quot;contact&quot;,&quot;play&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { navOpen: false, lang: (() => { try { return localStorage.getItem('aisee-lang2') || 'en'; } catch (e) { return 'en'; } })() };
+  setLang(l) {
+    if (window.AISEE_I18N) window.AISEE_I18N.set(l);
+    else { try { localStorage.setItem('aisee-lang2', l); } catch (e) {} }
+    this.setState({ lang: l });
+  }
+  renderVals() {
+    const pill = (on) => 'font-size:12px;font-weight:700;letter-spacing:.04em;padding:5px 11px;border-radius:999px;cursor:pointer;user-select:none;transition:background .2s,color .2s;' + (on ? 'background:#1B3A6B;color:#fff;' : 'background:transparent;color:#8B95A1;');
+    const langVals = { koStyle: pill(this.state.lang === 'ko'), enStyle: pill(this.state.lang === 'en'), setKo: () => this.setLang('ko'), setEn: () => this.setLang('en') };
+    const active = this.props.active || '';
+    const memberKeys = ['professor','members','undergraduates','alumni'];
+    const base = 'font-size:15px;font-weight:500;color:#191F28;cursor:pointer;text-decoration:none;';
+    const on = 'font-size:15px;font-weight:700;color:#1B3A6B;cursor:pointer;text-decoration:none;';
+    const link = (k) => active === k ? on : base;
+    const ddBase = 'display:block;padding:10px 18px;color:#191F28;text-decoration:none;font-size:14px;font-weight:500;';
+    const ddOn = 'display:block;padding:10px 18px;color:#1B3A6B;text-decoration:none;font-size:14px;font-weight:700;';
+    const dd = (k) => active === k ? ddOn : ddBase;
+    return {
+      ...langVals,
+      navOpenCls: this.state.navOpen ? 'open' : '',
+      navIcon: this.state.navOpen ? '✕' : '☰',
+      toggleNav: () => this.setState(st => ({ navOpen: !st.navOpen })),
+      homeStyle: link('home'),
+      memberStyle: (memberKeys.includes(active) ? on : base) + 'display:inline-flex;align-items:center;gap:5px;',
+      profStyle: dd('professor'), membersStyle: dd('members'), ugStyle: dd('undergraduates'), alumniStyle: dd('alumni'),
+      researchStyle: link('research'), pubStyle: link('publications'), broadStyle: link('broad'), contactStyle: link('contact'), playStyle: link('play')
+    };
+  }
+}
+</script>
+</body>
+</html>
