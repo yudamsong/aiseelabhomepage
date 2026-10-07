@@ -91,7 +91,7 @@
     ['Satellite imagery tracks when, where and how far algal blooms spread in Saemangeum Lake, showing water-quality changes across the whole lake without field visits.', '새만금호의 녹조가 언제, 어디서, 얼마나 번지는지를 위성 영상으로 추적합니다. 현장에 나가지 않아도 호수 전체의 수질 변화를 주기적으로 볼 수 있습니다.'],
     // publications
     ['Research Results (*Corresponding Author)', '연구 성과 (*교신저자)'],
-    ['Selected Papers', '주요 논문'], ['Corresponding', '교신저자'],
+    ['Selected Papers', '주요 논문'], ['Corresponding', '교신저자'], ['First Author', '제1저자'],
     ['No results found', '검색 결과가 없습니다'], ['Try a different keyword or year.', '다른 키워드나 연도로 다시 찾아보세요.'],
     ['Total Papers', '전체 논문'], ['Corresponding Author', '교신저자 논문'], ['Active Years', '연구 기간'],
     ['Search by title, author or journal', '제목, 저자, 저널로 검색'],
