@@ -89,6 +89,12 @@
     ['Algae Monitoring', '조류 모니터링 연구'],
     ['Monitoring algal blooms in Saemangeum Lake and analyzing their changes with satellite data.', '위성자료로 새만금호의 조류 발생을 감시하고 변화를 분석합니다.'],
     ['Satellite imagery tracks when, where and how far algal blooms spread in Saemangeum Lake, showing water-quality changes across the whole lake without field visits.', '새만금호의 녹조가 언제, 어디서, 얼마나 번지는지를 위성 영상으로 추적합니다. 현장에 나가지 않아도 호수 전체의 수질 변화를 주기적으로 볼 수 있습니다.'],
+    ['Radiometric Calibration', '절대복사보정 연구'],
+    ['Absolute radiometric calibration of CAS500-4 using ground tarps.', '지상 타프를 이용해 차세대중형위성 4호의 절대복사보정을 수행합니다.'],
+    ['Ground tarps of known reflectance are imaged by the satellite, and the recorded sensor values are compared with the actual radiance to derive absolute calibration coefficients.', '반사율을 알고 있는 지상 타프를 위성이 촬영하게 하고, 위성 센서가 기록한 값을 실제 복사휘도와 비교해 절대복사보정 계수를 구합니다.'],
+    ['Tarp deployment at multiple reflectance levels with field spectral measurements', '반사율 단계별 타프 설치와 현장 분광 측정'],
+    ['Top-of-atmosphere radiance simulated with a radiative transfer model', '대기 복사전달 모델로 대기 상단 복사휘도 산출'],
+    ['Calibration coefficients derived by comparison with satellite observations', '위성 관측값과 비교해 절대복사보정 계수 산정'],
     // publications
     ['Research Results (*Corresponding Author)', '연구 성과 (*교신저자)'],
     ['Selected Papers', '주요 논문'], ['Corresponding', '교신저자'], ['First Author', '제1저자'],

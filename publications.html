@@ -26,7 +26,7 @@
     <section style="max-width:1100px;margin:0 auto;padding:64px 48px 0;">
       <h2 class="section-h" style="font-size:40px;">Publications</h2>
       <p style="margin-top:10px;color:#8B95A1;font-size:16px;">Research Results&nbsp;&nbsp;(*Corresponding Author)</p>
-      <div class="m-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;">
         <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
           <div style="background:#F2F4F6;border-radius:20px;padding:24px 26px;display:flex;flex-direction:column;gap:6px;">
             <span style="font-size:14px;font-weight:600;color:#8B95A1;">{{ s.label }}</span>
@@ -38,7 +38,7 @@
 
     <section style="max-width:1100px;margin:0 auto;padding:56px 48px 0;">
       <h3 class="section-h" style="font-size:22px;margin-bottom:20px;">주요 논문</h3>
-      <div class="m-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
         <sc-for list="{{ highlights }}" as="hl" hint-placeholder-count="3">
           <div style="display:flex;flex-direction:column;gap:12px;padding:26px 24px;border:1px solid #E5E8EB;border-radius:20px;box-shadow:0 1px 2px rgba(25,31,40,.04);">
             <span style="align-self:flex-start;font-size:13px;font-weight:700;color:#1B3A6B;background:#E7ECF5;border-radius:999px;padding:5px 12px;">{{ hl.year }}</span>
@@ -78,10 +78,7 @@
                         <a href="{{ it.doiUrl }}" target="_blank" rel="noopener" style="align-self:flex-start;font-size:13px;font-weight:600;color:#1B3A6B;text-decoration:none;word-break:break-all;" style-hover="text-decoration:underline;">{{ it.doi }}</a>
                       </sc-if>
                     </div>
-                    <sc-if value="{{ it.first }}" hint-placeholder-val="{{ false }}">
-                      <span style="flex-shrink:0;align-self:flex-start;font-size:12px;font-weight:700;color:#1B3A6B;background:#E7ECF5;border-radius:999px;padding:5px 10px;white-space:nowrap;">제1저자</span>
-                    </sc-if>
-                    <sc-if value="{{ it.corrOnly }}" hint-placeholder-val="{{ false }}">
+                    <sc-if value="{{ it.corr }}" hint-placeholder-val="{{ false }}">
                       <span style="flex-shrink:0;align-self:flex-start;font-size:12px;font-weight:700;color:#1B3A6B;background:#E7ECF5;border-radius:999px;padding:5px 10px;white-space:nowrap;">교신저자</span>
                     </sc-if>
                   </li>
@@ -113,7 +110,6 @@ class Component extends DCLogic {
   renderVals() {
     const byYear = [
       { year: '2026', items: [
-        'Lee, Y., Kim, S., Kim, D., Kim, S., Lee, K., Han, D., Kim, H., Ko, J., & Yeom*, J. (2026). Integrating anthropogenic hydrodynamics and GOCI satellite observations for water quality retrieval in highly engineered coastal systems: A case study of Saemangeum. Remote Sensing of Environment.',
         'Ha, J., Jeong, S., Min, S., Lee, K., & Yeom*, J. (2026). Utilizing deep learning techniques in operational system of geo-KOMPSAT-2A satellite for estimating solar radiation and aerosol optical depth. GIScience & Remote Sensing, 62(1).',
         'Kim, H., Jeon, J., Wie, J., Yeom*, J., & Kim, G. (2026). Spatiotemporal attention with conditional feature modulation for satellite-based solar irradiance prediction. IEEE Geoscience and Remote Sensing Letters, 23, 1000605.'
       ]},
@@ -220,7 +216,7 @@ class Component extends DCLogic {
       .filter(g => yr === 'All' || g.year === yr)
       .map(g => {
         const items = g.items.filter(t => !q || t.toLowerCase().indexOf(q) !== -1);
-        return { year: g.year, count: items.length + '편', items: items.map((t, i) => { const d = doiOf(t); return { num: String(i + 1).padStart(2, '0'), text: t, corr: t.indexOf('Yeom*') !== -1, first: /^(J\.M\. )?Yeom/.test(t), corrOnly: t.indexOf('Yeom*') !== -1 && !/^(J\.M\. )?Yeom/.test(t), hasDoi: !!d, doi: 'DOI ' + d, doiUrl: 'https://doi.org/' + d }; }) };
+        return { year: g.year, count: items.length + '편', items: items.map((t, i) => { const d = doiOf(t); return { num: String(i + 1).padStart(2, '0'), text: t, corr: t.indexOf('Yeom*') !== -1, hasDoi: !!d, doi: 'DOI ' + d, doiUrl: 'https://doi.org/' + d }; }) };
       })
       .filter(g => g.items.length);
     const shown = groups.reduce((n, g) => n + g.items.length, 0);
@@ -235,9 +231,9 @@ class Component extends DCLogic {
         { label: '연구 기간', value: '2008 – 2026' }
       ],
       highlights: [
-        { year: '2026', title: 'Integrating anthropogenic hydrodynamics and GOCI satellite observations for water quality retrieval in highly engineered coastal systems: A case study of Saemangeum', journal: 'Remote Sensing of Environment' },
-        { year: '2022', title: 'Estimation of the Hourly Aerosol Optical Depth from GOCI Geostationary Satellite Data: Deep Neural Network, Machine Learning, and Physical Models', journal: 'IEEE Transactions on Geoscience and Remote Sensing, 60' },
-        { year: '2020', title: 'Exploring solar and wind energy resources in North Korea with COMS MI Geostationary satellite data coupled with numerical weather prediction reanalysis variables', journal: 'Renewable and Sustainable Energy Reviews, 119, 109570' }
+        { year: '2026', title: 'Utilizing deep learning techniques in operational system of geo-KOMPSAT-2A satellite for estimating solar radiation and aerosol optical depth', journal: 'GIScience & Remote Sensing, 62(1)' },
+        { year: '2026', title: 'Spatiotemporal attention with conditional feature modulation for satellite-based solar irradiance prediction', journal: 'IEEE Geoscience and Remote Sensing Letters, 23' },
+        { year: '2025', title: 'Evaluation of Cloud Mask Performance of KOMPSAT-3 Top-of-Atmosphere Reflectance Incorporating Deeplabv3+ with Resnet 101 Model', journal: 'Applied Sciences, 15(8)' }
       ],
       query: this.state.query,
       onSearch: (e) => this.setState({ query: e.target.value }),

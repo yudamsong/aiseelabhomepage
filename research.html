@@ -242,15 +242,19 @@
           <use href="#wtsea" transform="translate(1246,512) scale(0.72)"></use>
           <use href="#wtsea" transform="translate(1094,540) scale(0.68)"></use>
 
+<g>
+            <polygon points="526.0,672.0 668.0,750.1 810.0,672.0 668.0,593.9" fill="#8DB86E" opacity=".45"></polygon>
+            <polygon points="550.0,672.0 600.0,699.5 650.0,672.0 600.0,644.5" fill="#A3A5A6" stroke="#3F4446" stroke-width="1"></polygon>
+            <polygon points="618.0,634.6 668.0,662.1 718.0,634.6 668.0,607.1" fill="#FFFFFF" stroke="#3F4446" stroke-width="1"></polygon>
+            <polygon points="618.0,709.4 668.0,736.9 718.0,709.4 668.0,681.9" fill="#111314" stroke="#3F4446" stroke-width="1"></polygon>
+            <polygon points="686.0,672.0 736.0,699.5 786.0,672.0 736.0,644.5" fill="#6B6E70" stroke="#3F4446" stroke-width="1"></polygon>
+          </g>
           <g>
             <use href="#tree" transform="translate(300,520)"></use>
             <use href="#tree" transform="translate(348,552)"></use>
             <use href="#tree" transform="translate(252,566) scale(1.1)"></use>
             <use href="#tree" transform="translate(420,610)"></use>
             <use href="#tree" transform="translate(492,650) scale(1.1)"></use>
-            <use href="#tree" transform="translate(566,678)"></use>
-            <use href="#tree" transform="translate(640,704) scale(1.15)"></use>
-            <use href="#tree" transform="translate(716,678)"></use>
             <use href="#tree" transform="translate(790,646)"></use>
             <use href="#tree" transform="translate(864,678) scale(0.9)"></use>
             <use href="#tree" transform="translate(700,400) scale(0.8)"></use>
@@ -344,7 +348,7 @@
       <sc-if value="{{ detail }}" hint-placeholder-val="{{ true }}">
         <div class="m-detail" style="margin-top:28px;border:1px solid #E5E8EB;border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 12px 32px rgba(25,31,40,.09);animation:panel-in .4s cubic-bezier(.2,.8,.2,1) both;">
           <div class="m-stack" style="{{ detail.gridStyle }}">
-            <sc-if value="{{ detail.hasImg }}" hint-placeholder-val="{{ true }}">
+            <sc-if value="{{ detail.hasImg }}" hint-placeholder-val="{{ false }}">
               <div class="m-dimg" style="background:#F7F8FA;display:flex;align-items:center;justify-content:center;padding:32px;border-right:1px solid #E5E8EB;">
                 <img src="{{ detail.img }}" alt="{{ detail.title }}" style="max-width:100%;max-height:420px;object-fit:contain;display:block;border-radius:10px;">
               </div>
@@ -472,6 +476,51 @@
                 </svg>
               </div>
             </sc-if>
+            <sc-if value="{{ detail.isCalib }}" hint-placeholder-val="{{ false }}">
+              <div class="m-dimg" style="background:#F7F8FA;display:flex;align-items:center;justify-content:center;padding:32px;border-right:1px solid #E5E8EB;">
+                <svg viewBox="0 0 540 320" style="width:100%;max-width:520px;height:auto;display:block;">
+                  <rect x="20" y="20" width="500" height="250" rx="10" fill="#FFFFFF" stroke="#D5DBE1" stroke-width="1.5"></rect>
+                  <g transform="translate(58,58)">
+                    <circle r="20" fill="#FDE7B0"></circle>
+                    <circle r="12" fill="#F5B83D"></circle>
+                  </g>
+                  <g transform="translate(262,52)">
+                    <rect x="-12" y="-12" width="24" height="24" rx="3" fill="#E3E9EF"></rect>
+                    <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#B9C4D2"></rect>
+                    <rect x="-42" y="-7" width="26" height="14" rx="2" fill="#6B5BD6"></rect>
+                    <rect x="16" y="-7" width="26" height="14" rx="2" fill="#6B5BD6"></rect>
+                  </g>
+                  <text x="262" y="86" text-anchor="middle" font-family="inherit" font-size="12" font-weight="700" fill="#6B5BD6">CAS500-4</text>
+                  <g stroke="#F5B83D" stroke-width="1.6" stroke-dasharray="4 5" fill="none">
+                    <path d="M72,74 L111,206"></path>
+                    <path d="M76,70 L165,179"></path>
+                  </g>
+                  <g stroke="#6B5BD6" stroke-width="1.6" fill="none" opacity=".8">
+                    <path d="M171,179 L254,94"></path>
+                    <path d="M219,206 L266,94"></path>
+                  </g>
+                  <polygon points="37.0,212.0 165.0,276.0 293.0,212.0 165.0,148.0" fill="#B9D89F" stroke="#8DB86E" stroke-width="1.5"></polygon>
+                  <polygon points="71.0,212.0 111.0,232.0 151.0,212.0 111.0,192.0" fill="#A3A5A6" stroke="#3F4446" stroke-width="1"></polygon><polygon points="125.0,185.0 165.0,205.0 205.0,185.0 165.0,165.0" fill="#FFFFFF" stroke="#3F4446" stroke-width="1"></polygon><polygon points="125.0,239.0 165.0,259.0 205.0,239.0 165.0,219.0" fill="#111314" stroke="#3F4446" stroke-width="1"></polygon><polygon points="179.0,212.0 219.0,232.0 259.0,212.0 219.0,192.0" fill="#6B6E70" stroke="#3F4446" stroke-width="1"></polygon>
+                  <text x="165" y="292" text-anchor="middle" font-family="inherit" font-size="12.5" font-weight="700" fill="#4E5968">반사율을 아는 지상 타프</text>
+                  <line x1="318" y1="40" x2="318" y2="250" stroke="#E5E8EB" stroke-width="1.5"></line>
+                  <g stroke="#9AA5B1" stroke-width="1.4" fill="none">
+                    <path d="M352,72 L352,232 L506,232"></path>
+                  </g>
+                  <path d="M362,222 L500,84" stroke="#6B5BD6" stroke-width="2" stroke-dasharray="5 4"></path>
+                  <g stroke="#3F4446" stroke-width="1.2">
+                    <circle cx="372" cy="212" r="7" fill="#111314"></circle>
+                    <circle cx="410" cy="174" r="7" fill="#6B6E70"></circle>
+                    <circle cx="450" cy="134" r="7" fill="#A3A5A6"></circle>
+                    <circle cx="488" cy="96" r="7" fill="#FFFFFF"></circle>
+                  </g>
+                  <g font-family="inherit" font-size="11.5" fill="#8B95A1">
+                    <text x="506" y="250" text-anchor="end">위성 관측값 (DN)</text>
+                    <text x="344" y="64">복사휘도</text>
+                  </g>
+                  <text x="430" y="292" text-anchor="middle" font-family="inherit" font-size="12.5" font-weight="700" fill="#4E5968">기울기 = 절대복사보정 계수</text>
+                </svg>
+              </div>
+            </sc-if>
             <div class="m-dtext" style="padding:38px 38px 34px;display:flex;flex-direction:column;">
               <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
                 <span style="font-size:12px;font-weight:700;letter-spacing:.14em;color:#1B3A6B;padding-top:4px;">{{ detail.kicker }}</span>
@@ -561,6 +610,16 @@ const DATA = [
     desc: '새만금호의 녹조가 언제, 어디서, 얼마나 번지는지를 위성 영상으로 추적합니다. 현장에 나가지 않아도 호수 전체의 수질 변화를 주기적으로 볼 수 있습니다.',
     points: ['위성 반사도에서 클로로필-a 농도 추정', '계절·연도별 녹조 확산 패턴 분석', '현장 관측 자료와의 정확도 검증'],
     img: M + 'f6a492_7ee88cb8af734396b2832cb3764993fa~mv2.png/v1/fill/w_923,h_460,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202025-05-08%20164812.png'
+  },
+  {
+    key: 'calib', kicker: 'RADIOMETRIC CALIBRATION', color: '#6B5BD6', icon: '▦',
+    label: '절대복사보정 연구',
+    blurb: '지상 타프를 이용해 차세대중형위성 4호의 절대복사보정을 수행합니다.',
+    chip: { left: '50%', top: '80%' }, dot: { x: '52.6%', y: '75.5%' },
+    title: 'Absolute Radiometric Calibration of CAS500-4 Using Ground Tarps',
+    desc: '반사율을 알고 있는 지상 타프를 위성이 촬영하게 하고, 위성 센서가 기록한 값을 실제 복사휘도와 비교해 절대복사보정 계수를 구합니다.',
+    points: ['반사율 단계별 타프 설치와 현장 분광 측정', '대기 복사전달 모델로 대기 상단 복사휘도 산출', '위성 관측값과 비교해 절대복사보정 계수 산정'],
+    img: ''
   }
 ];
 
@@ -575,13 +634,14 @@ class Component extends DCLogic {
       const on = active === d.key;
       const chipTopPct = parseFloat(d.chip.top);
       const dotYPct = parseFloat(d.dot.y);
-      const stemTop = chipTopPct + (on ? 14.6 : 9.4);
-      const stemH = Math.max(dotYPct - stemTop, 0);
+      const below = chipTopPct > dotYPct;
+      const stemTop = below ? dotYPct : chipTopPct + (on ? 14.6 : 9.4);
+      const stemH = Math.max((below ? chipTopPct : dotYPct) - stemTop, 0);
       return {
         key: d.key, label: d.label, blurb: d.blurb, icon: d.icon,
         onClick: () => this.select(d.key),
         mobStyle: `display:flex;align-items:center;gap:8px;padding:10px;border-radius:12px;background:${on ? '#F2F6FB' : '#fff'};border:1px solid ${on ? d.color : '#E5E8EB'};cursor:pointer;font-family:inherit;min-height:48px;`,
-        blurbStyle: `font-size:12.5px;line-height:1.45;color:#6B7684;text-wrap:pretty;max-width:170px;display:${on ? 'block' : 'none'};`,
+        blurbStyle: `font-size:12.5px;line-height:1.45;color:#6B7684;text-wrap:pretty;max-width:170px;display:${on && !below ? 'block' : 'none'};`,
         chipStyle: `position:absolute;left:${d.chip.left};top:${d.chip.top};display:flex;gap:9px;align-items:center;padding:11px 15px 11px 12px;border-radius:14px;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border:1px solid ${on ? d.color : 'rgba(229,232,235,.9)'};box-shadow:${on ? '0 14px 32px rgba(25,31,40,.20)' : '0 6px 18px rgba(25,31,40,.12)'};cursor:pointer;font-family:inherit;transition:all .22s cubic-bezier(.2,.8,.2,1);transform:${on ? 'translateY(-2px)' : 'none'};z-index:3;`,
         iconStyle: `flex:none;width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;background:${d.color};`,
         stemStyle: `position:absolute;left:${d.dot.x};top:${stemTop}%;height:${stemH}%;width:2px;background:${d.color};opacity:${on ? 1 : .55};transform:translateX(-1px);z-index:2;transition:all .22s cubic-bezier(.2,.8,.2,1);`,
@@ -595,6 +655,7 @@ class Component extends DCLogic {
     if (ad) {
       const ax = 1146, ay = 176;
       const targets = [{ x: parseFloat(ad.dot.x) / 100 * 1400, y: parseFloat(ad.dot.y) / 100 * 890, rx: 62, ry: 24 }];
+      if (ad.key === 'calib') { targets.length = 0; targets.push({ x: 668, y: 672, rx: 132, ry: 72 }); }
       if (ad.key === 'cloud') { targets.length = 0; targets.push({ x: 457, y: 256, rx: 166, ry: 160 }); }
       beam = {
         color: ad.key === 'cloud' ? '#5B6E88' : ad.color,
@@ -625,6 +686,7 @@ class Component extends DCLogic {
         hasImg: !!ad.img,
         isCloud: ad.key === 'cloud',
         isFog: ad.key === 'fog',
+        isCalib: ad.key === 'calib',
         gridStyle: `display:grid;grid-template-columns:1.15fr .85fr;`
       } : null,
       close: () => this.setState({ active: null })
